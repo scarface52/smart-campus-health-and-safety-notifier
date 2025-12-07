@@ -13,7 +13,8 @@
         android:theme="@style/Theme.SmartCampus">
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.SmartCampus" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

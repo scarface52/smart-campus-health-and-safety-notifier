@@ -1,9 +1,31 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<resources>
+    <style name="Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Core color roles -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorOnPrimary">@color/on_light_primary</item>
+
+        <item name="colorPrimaryContainer">@color/light_bg_light</item>
+        <item name="colorOnPrimaryContainer">@color/light_primary</item>
+
+        <item name="colorSecondary">@color/light_secondary</item>
+        <item name="colorOnSecondary">@color/on_light_primary</item>
+
+        <item name="android:colorBackground">@color/light_bg</item>
+        <item name="colorOnBackground">@color/light_text</item>
+
+        <item name="colorSurface">@color/light_bg_light</item>
+        <item name="colorOnSurface">@color/light_text</item>
+
+        <item name="colorOutline">@color/light_border</item>
+
+        <item name="colorError">@color/light_danger</item>
+        <item name="colorOnError">@color/light_bg_light</item>
+
+        <item name="colorSurfaceVariant">@color/light_bg_dark</item>
+        <item name="colorOnSurfaceVariant">@color/light_text_muted</item>
+
+        <!-- Additional semantic tokens -->
+        <item name="colorPrimaryInverse">@color/light_bg_dark</item>
     </style>
 
-    <style name="Theme.SmartCampus" parent="Base.Theme.SmartCampus" />
 </resources>

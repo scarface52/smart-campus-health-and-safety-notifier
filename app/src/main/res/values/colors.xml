@@ -1,5 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- DARK MODE -->
+    <color name="dark_bg_dark">#00001E</color>
+    <color name="dark_bg">#00072C</color>
+    <color name="dark_bg_light">#001339</color>
+
+    <color name="dark_text">#C8F4FF</color>
+    <color name="dark_text_muted">#89B3F1</color>
+
+    <color name="dark_highlight">#1D60BC</color>
+
+    <color name="dark_border">#00419B</color>
+    <color name="dark_border_muted">#000432</color>
+
+    <color name="dark_primary">#6EB1FF</color>
+    <color name="dark_secondary">#E8A200</color>
+
+    <color name="dark_danger">#E02B1D</color>
+    <color name="dark_warning">#B69F00</color>
+    <color name="dark_success">#00BC7B</color>
+    <color name="dark_info">#619DFF</color>
+
+    <color name="on_dark_primary">#C8F4FF</color>
+
+
+    <!-- LIGHT MODE -->
+    <color name="light_bg_dark">#8CCBFF</color>
+    <color name="light_bg">#A2E7FF</color>
+    <color name="light_bg_light">#BAFFFF</color>
+
+    <color name="light_text">#000012</color>
+    <color name="light_text_muted">#000D53</color>
+
+    <color name="light_highlight">#7CFFFF</color>
+
+    <color name="light_border">#0B35B9</color>
+    <color name="light_border_muted">#1A57FF</color>
+
+    <color name="light_primary">#000D53</color>
+    <color name="light_secondary">#2C0800</color>
+
+    <color name="light_danger">#680804</color>
+    <color name="light_warning">#311F00</color>
+    <color name="light_success">#00340D</color>
+    <color name="light_info">#041C80</color>
+
+    <color name="on_light_primary">#000012</color>
+
 </resources>
