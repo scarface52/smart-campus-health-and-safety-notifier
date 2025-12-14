@@ -1,6 +1,5 @@
 package com.theretros.smartcampus.data
 
-import com.theretros.smartcampus.client
 import com.theretros.smartcampus.data.dataclasses.User
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -9,7 +8,6 @@ import io.github.jan.supabase.storage.Storage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-
 
 
 val client = createSupabaseClient(
