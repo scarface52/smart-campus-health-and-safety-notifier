@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CardStyle">
+        <item name="android:layout_margin">@dimen/card_margin</item>
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="android:paddingHorizontal">28dp</item>
+    </style>
+    <style name="Title">>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">@dimen/title_medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+    <style name="body">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textSize">@dimen/body_medium</item>
+    </style>
+
+    <style name="TypeWithIconButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:paddingHorizontal">8dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:paddingVertical">4dp</item>
+        <item name="android:layout_margin">0dp</item>
+
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="iconSize">16dp</item>
+        <item name="strokeColor">?attr/colorPrimary</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="cornerRadius">50dp</item>
+
+        <item name="android:enabled">false</item>
+    </style>
+    <style name="TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">0dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
+
+        <item name="android:textSize">@dimen/body_medium</item>
+        <item name="hintTextColor">?attr/colorSurfaceVariant</item>
+
+        <item name="startIconTint">?attr/colorPrimary</item>
+
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+
+        <item name="helperTextEnabled">false</item>
+    </style>
+
+    <!-- Style for the TextInputEditText inside it -->
+    <style name="TextInputEditText" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:textColor">?attr/colorOnSecondary</item>
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+
+    </style>
+
+</resources>
