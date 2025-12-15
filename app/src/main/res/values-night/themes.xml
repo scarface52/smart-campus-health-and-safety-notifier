@@ -4,27 +4,30 @@
     <style name="Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
 
         <item name="colorPrimary">@color/dark_primary</item>
-        <item name="colorOnPrimary">@color/on_dark_primary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
 
         <item name="colorPrimaryContainer">@color/dark_bg_light</item>
         <item name="colorOnPrimaryContainer">@color/dark_primary</item>
 
         <item name="colorSecondary">@color/dark_secondary</item>
-        <item name="colorOnSecondary">@color/dark_text</item>
+        <item name="colorOnSecondary">@android:color/white</item>
 
-        <item name="android:colorBackground">@color/dark_bg</item>
+        <item name="android:colorBackground">@color/dark_bg_dark</item>
         <item name="colorOnBackground">@color/dark_text</item>
 
-        <item name="colorSurface">@color/dark_bg_light</item>
+        <item name="colorSurface">@color/dark_bg</item>
         <item name="colorOnSurface">@color/dark_text</item>
 
         <item name="colorOutline">@color/dark_border</item>
 
         <item name="colorError">@color/dark_danger</item>
-        <item name="colorOnError">@color/dark_bg_light</item>
+        <item name="colorSuccess">@color/dark_success</item>
+        <item name="colorInfo">@color/dark_info</item>
+        <item name="colorWarning">@color/dark_warning</item>
 
         <item name="colorSurfaceVariant">@color/dark_bg_dark</item>
-        <item name="colorOnSurfaceVariant">@color/dark_text_muted</item>
+        <item name="colorTextMuted">@color/dark_text_muted</item>
+
     </style>
 
 </resources>

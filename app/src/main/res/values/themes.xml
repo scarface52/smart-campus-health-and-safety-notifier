@@ -2,13 +2,13 @@
     <style name="Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Core color roles -->
         <item name="colorPrimary">@color/light_primary</item>
-        <item name="colorOnPrimary">@color/on_light_primary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
 
         <item name="colorPrimaryContainer">@color/light_bg_light</item>
         <item name="colorOnPrimaryContainer">@color/light_primary</item>
 
         <item name="colorSecondary">@color/light_secondary</item>
-        <item name="colorOnSecondary">@color/on_light_primary</item>
+        <item name="colorOnSecondary">@android:color/white</item>
 
         <item name="android:colorBackground">@color/light_bg</item>
         <item name="colorOnBackground">@color/light_text</item>
@@ -20,12 +20,16 @@
 
         <item name="colorError">@color/light_danger</item>
         <item name="colorOnError">@color/light_bg_light</item>
+        <item name="colorSuccess">@color/dark_success</item>
+        <item name="colorInfo">@color/dark_info</item>
+        <item name="colorWarning">@color/dark_warning</item>
 
         <item name="colorSurfaceVariant">@color/light_bg_dark</item>
         <item name="colorOnSurfaceVariant">@color/light_text_muted</item>
 
         <!-- Additional semantic tokens -->
         <item name="colorPrimaryInverse">@color/light_bg_dark</item>
+
     </style>
 
 </resources>
