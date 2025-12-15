@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- ===================== -->
+    <!--   GLOBAL SPACING      -->
+    <!-- ===================== -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_s">8dp</dimen>
+    <dimen name="spacing_m">16dp</dimen>
+    <dimen name="spacing_l">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- ===================== -->
+    <!--   CARD COMPONENT      -->
+    <!-- ===================== -->
+    <!-- Recommended by Material Design -->
+    <dimen name="card_radius">20dp</dimen>
+    <dimen name="card_elevation">1dp</dimen>
+    <dimen name="card_padding_horizontal">16dp</dimen>
+    <dimen name="card_padding_vertical">12dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+
+    <!-- ===================== -->
+    <!--   LIST ITEM / ROWS    -->
+    <!-- ===================== -->
+    <dimen name="list_item_padding_vertical">12dp</dimen>
+    <dimen name="list_item_padding_horizontal">16dp</dimen>
+    <dimen name="list_item_spacing">12dp</dimen>
+
+    <!-- ===================== -->
+    <!--   TYPOGRAPHY SPACING  -->
+    <!-- ===================== -->
+    <dimen name="text_title_margin_bottom">8dp</dimen>
+    <dimen name="text_subtitle_margin_bottom">4dp</dimen>
+    <dimen name="text_paragraph_spacing">12dp</dimen>
+
+    <!-- Headline -->
+    <dimen name="headline_large">32sp</dimen>
+    <dimen name="headline_medium">28sp</dimen>
+    <dimen name="headline_small">24sp</dimen>
+
+    <!-- Title -->
+    <dimen name="title_large">22sp</dimen>
+    <dimen name="title_medium">16sp</dimen>
+    <dimen name="title_small">14sp</dimen>
+
+    <!-- Body -->
+    <dimen name="body_large">16sp</dimen>
+    <dimen name="body_medium">14sp</dimen>
+    <dimen name="body_small">12sp</dimen>
+
+    <!-- ===================== -->
+    <!--   BUTTONS             -->
+    <!-- ===================== -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_corner_radius">12dp</dimen>
+    <dimen name="button_padding_horizontal">16dp</dimen>
+    <dimen name="button_padding_vertical">12dp</dimen>
+
+    <!-- ===================== -->
+    <!--   INPUT FIELDS        -->
+    <!-- ===================== -->
+    <dimen name="textfield_height">56dp</dimen>
+    <dimen name="textfield_corner_radius">8dp</dimen>
+    <dimen name="textfield_padding_horizontal">16dp</dimen>
+    <dimen name="textfield_padding_vertical">12dp</dimen>
+
+    <!-- ===================== -->
+    <!--   ICONS               -->
+    <!-- ===================== -->
+    <dimen name="icon_size_s">16dp</dimen>
+    <dimen name="icon_size_m">24dp</dimen>
+    <dimen name="icon_size_l">32dp</dimen>
+
+    <!-- ===================== -->
+    <!--   TOOLBAR / APP BAR   -->
+    <!-- ===================== -->
+    <dimen name="appbar_height">56dp</dimen>
+    <dimen name="appbar_padding_horizontal">16dp</dimen>
+
+    <!-- ===================== -->
+    <!--   AVATAR / PROFILE    -->
+    <!-- ===================== -->
+    <dimen name="avatar_size_s">32dp</dimen>
+    <dimen name="avatar_size_m">40dp</dimen>
+    <dimen name="avatar_size_l">56dp</dimen>
+
+    <!-- ===================== -->
+    <!--   DIVIDERS            -->
+    <!-- ===================== -->
+    <dimen name="divider_height">1dp</dimen>
+
+    <!-- ===================== -->
+    <!--   CORNER RADII        -->
+    <!-- ===================== -->
+    <dimen name="corner_small">4dp</dimen>
+    <dimen name="corner_medium">8dp</dimen>
+    <dimen name="corner_large">12dp</dimen>
+
+</resources>
