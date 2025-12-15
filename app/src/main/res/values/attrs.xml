@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppThemeAttributes">
+        <attr name="colorSuccess" format="color" />
+        <attr name="colorInfo" format="color" />
+        <attr name="colorWarning" format="color" />
+        <attr name="colorTextMuted" format="color" />
+    </declare-styleable>
+</resources>
