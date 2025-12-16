@@ -5,5 +5,6 @@
         <attr name="colorInfo" format="color" />
         <attr name="colorWarning" format="color" />
         <attr name="colorTextMuted" format="color" />
+        <attr name="colorHighlight" format="color"/>
     </declare-styleable>
 </resources>

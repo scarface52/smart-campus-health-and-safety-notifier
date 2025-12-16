@@ -20,6 +20,8 @@
 
         <item name="colorOutline">@color/dark_border</item>
 
+        <item name="colorHighlight">@color/dark_highlight</item>
+
         <item name="colorError">@color/dark_danger</item>
         <item name="colorSuccess">@color/dark_success</item>
         <item name="colorInfo">@color/dark_info</item>

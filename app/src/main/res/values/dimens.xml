@@ -16,7 +16,7 @@
     <!-- ===================== -->
     <!-- Recommended by Material Design -->
     <dimen name="card_radius">20dp</dimen>
-    <dimen name="card_elevation">1dp</dimen>
+    <dimen name="card_elevation">3dp</dimen>
     <dimen name="card_padding_horizontal">16dp</dimen>
     <dimen name="card_padding_vertical">12dp</dimen>
     <dimen name="card_margin">16dp</dimen>

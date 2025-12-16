@@ -18,6 +18,8 @@
 
         <item name="colorOutline">@color/light_border</item>
 
+        <item name="colorHighlight">@color/light_highlight</item>
+
         <item name="colorError">@color/light_danger</item>
         <item name="colorOnError">@color/light_bg_light</item>
         <item name="colorSuccess">@color/dark_success</item>
