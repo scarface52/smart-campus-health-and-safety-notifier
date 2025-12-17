@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="CardStyle">
-        <item name="android:layout_margin">@dimen/card_margin</item>
+        <item name="android:layout_marginStart">@dimen/card_marginStart</item>
+        <item name="android:layout_marginEnd">@dimen/card_marginEnd</item>
+        <item name="android:layout_marginTop">@dimen/card_marginTop</item>
+        <item name="android:layout_marginBottom">@dimen/card_marginBottom</item>
         <item name="cardCornerRadius">@dimen/card_radius</item>
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="cardBackgroundColor">?attr/colorSurface</item>

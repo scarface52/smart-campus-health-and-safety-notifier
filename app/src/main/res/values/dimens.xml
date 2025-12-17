@@ -19,7 +19,10 @@
     <dimen name="card_elevation">3dp</dimen>
     <dimen name="card_padding_horizontal">16dp</dimen>
     <dimen name="card_padding_vertical">12dp</dimen>
-    <dimen name="card_margin">16dp</dimen>
+    <dimen name="card_marginStart">16dp</dimen>
+    <dimen name="card_marginEnd">16dp</dimen>
+    <dimen name="card_marginTop">0dp</dimen>
+    <dimen name="card_marginBottom">16dp</dimen>
 
     <!-- ===================== -->
     <!--   LIST ITEM / ROWS    -->
@@ -97,5 +100,6 @@
     <dimen name="corner_small">4dp</dimen>
     <dimen name="corner_medium">8dp</dimen>
     <dimen name="corner_large">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

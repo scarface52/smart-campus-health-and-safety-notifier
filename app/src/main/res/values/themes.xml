@@ -1,4 +1,5 @@
 <resources>
+
     <style name="Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Core color roles -->
         <item name="colorPrimary">@color/light_primary</item>
@@ -10,10 +11,10 @@
         <item name="colorSecondary">@color/light_secondary</item>
         <item name="colorOnSecondary">@android:color/white</item>
 
-        <item name="android:colorBackground">@color/light_bg</item>
+        <item name="android:colorBackground">@color/light_bg_light</item>
         <item name="colorOnBackground">@color/light_text</item>
 
-        <item name="colorSurface">@color/light_bg_light</item>
+        <item name="colorSurface">@color/light_bg</item>
         <item name="colorOnSurface">@color/light_text</item>
 
         <item name="colorOutline">@color/light_border</item>
@@ -32,6 +33,11 @@
         <!-- Additional semantic tokens -->
         <item name="colorPrimaryInverse">@color/light_bg_dark</item>
 
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SmartCampus" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
 </resources>
