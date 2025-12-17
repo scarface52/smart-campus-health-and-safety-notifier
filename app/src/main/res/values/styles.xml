@@ -56,7 +56,7 @@
 
         <item name="startIconTint">?attr/colorPrimary</item>
 
-        <item name="boxBackgroundColor">?attr/colorSurface</item>
+        <item name="boxBackgroundColor">?attr/colorSurfaceVariant</item>
         <item name="boxCornerRadiusTopStart">12dp</item>
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCollapsedPaddingTop">0dp</item>
@@ -64,11 +64,11 @@
         <item name="helperTextEnabled">false</item>
     </style>
 
-    <!-- Style for the TextInputEditText inside it -->
     <style name="TextInputEditText" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">0dp</item>
+        <item name="android:textSize">@dimen/body_medium</item>
         <item name="android:textColor">?attr/colorOnSecondary</item>
         <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
         <item name="android:paddingTop">2dp</item>
@@ -98,6 +98,34 @@
         <item name="rippleColor">@android:color/transparent</item>
         <item name="android:padding">0dp</item>
     </style>
+    <style name="Widget.App.TextInputLayout.Dropdown" parent="Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginHorizontal">0dp</item>
+        <item name="android:layout_marginBottom">20dp</item>
 
+        <item name="hintTextColor">?attr/colorOnSurfaceVariant</item>
+        <item name="startIconTint">?attr/colorPrimary</item>
+        <item name="boxBackgroundColor">?attr/colorSurfaceVariant</item>
+
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item> <item name="boxCornerRadiusBottomEnd">12dp</item>
+
+        <item name="endIconTint">?attr/colorPrimary</item>
+
+        <item name="helperTextEnabled">false</item>
+    </style>
+
+    <style name="Widget.App.AutoCompleteTextView" parent="Widget.Material3.AutoCompleteTextView.FilledBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">12dp</item> <item name="android:paddingBottom">12dp</item>
+
+        <item name="android:inputType">none</item>
+
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textColorHint">?attr/colorOnSurfaceVariant</item>
+    </style>
 
 </resources>
