@@ -1,6 +1,7 @@
 package com.theretros.smartcampus.data
 
 import com.theretros.smartcampus.data.dataclasses.Incident
+import com.theretros.smartcampus.data.dataclasses.IncidentDetail
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
 import com.theretros.smartcampus.data.dataclasses.User
@@ -96,7 +97,7 @@ fun getFollowedIncidents(userId: Int, classId: Int, status: String): MutableList
     return incidents
 }
 
-
+// Gets incident information for the map screen
 fun getIncidentMapInfo(incidentId: Int): MutableList<IncidentMapInfo> {
     val incidentMapInfo = mutableListOf<IncidentMapInfo>()
     CoroutineScope(Dispatchers.IO).launch {
@@ -116,6 +117,30 @@ fun getIncidentMapInfo(incidentId: Int): MutableList<IncidentMapInfo> {
     return incidentMapInfo
     }
 
+// Gets incident details from an incident id
+suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
+    val incidentDetail = supabase.from("incidents").select(
+        columns = Columns.raw("""
+            title,
+            description,
+            report_time,
+            location,
+            class_id,
+            status,
+            incident_images (
+                image_id,
+                incident_id,
+                image_url
+            )
+        """)
+    ) {
+        filter {
+            eq("incident_id", incidentId)
+        }
+    }.decodeSingle<IncidentDetail>()
+
+    return incidentDetail
+}
 
 // Inserts a new user
 fun insertUser(user_id: Int,
