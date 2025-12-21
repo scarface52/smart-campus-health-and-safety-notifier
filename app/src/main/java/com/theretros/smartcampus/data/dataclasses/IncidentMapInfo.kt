@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class IncidentMapInfo(
     val location: String,
-    val type: String
+    val class_id: Int
 )

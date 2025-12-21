@@ -12,5 +12,5 @@ data class IncidentDetail @OptIn(ExperimentalTime::class) constructor(
     val location: String,
     val class_id: Int,
     val status: String,
-    val images: List<String>
+    val incident_images: List<IncidentImage>
 )
