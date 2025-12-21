@@ -6,11 +6,16 @@ import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
+import com.theretros.smartcampus.data.dataclasses.IncidentWithFollow
+import com.theretros.smartcampus.data.dataclasses.IncidentWithFollowDto
 import com.theretros.smartcampus.data.dataclasses.User
+import com.theretros.smartcampus.data.dataclasses.UserInfo
+import com.theretros.smartcampus.data.dataclasses.toDomain
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.Storage
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -46,7 +51,7 @@ suspend fun insertIncident(
     }
 }
 
-// Gets followed incidents from a user id with class id and status filters
+// Gets followed incidents from a user id with class id and status filters, ordered by date
 suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): List<IncidentSummary> {
     val followedIncidents = supabase.from("followed_incidents").select(
         columns = Columns.list(
@@ -58,6 +63,8 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
         }
     }.decodeList<Int>()
 
+    if (followedIncidents.isEmpty()) return emptyList()
+
     val incidents = supabase.from("incidents").select(
         columns = Columns.list(
             "incident_id",
@@ -68,17 +75,42 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
             "status"
         )
     ) {
+        order(column = "report_time", order = Order.DESCENDING)
         filter {
-            and {
-                isIn("incident_id", followedIncidents)
-                eq("class_id", classId)
-                eq("status", status)
-            }
+            isIn("incident_id", followedIncidents)
+            eq("class_id", classId)
+            eq("status", status)
         }
     }.decodeList<IncidentSummary>()
 
     return incidents
 }
+
+// Gets incidents with follow status from a user id with class id and status filters, ordered by date
+suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int, status: String): List<IncidentWithFollow> {
+    val incidentsWithFollow = supabase.from("incidents").select(
+            Columns.raw("""
+                incident_id,
+                title,
+                description,
+                report_time,
+                class_id,
+                status,
+                followed_incidents (
+                    user_id
+                )
+            """)
+        ) {
+            filter {
+                eq("class_id", classId)
+                eq("status", status)
+                eq("followed_incidents.user_id", userId)
+            }
+        }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
+
+    return incidentsWithFollow
+}
+
 
 // Gets incident information for the map screen
 suspend fun getIncidentMapInfo(incidentId: Int): List<IncidentMapInfo> {
@@ -209,7 +241,7 @@ suspend fun insertUser(userId: Int,
                        password: String,
                        faculty: String,
                        role: String,
-                       jurisdiction: String){
+                       jurisdiction: String) {
     val user = User(userId, name, lastName, email, password, faculty, role, jurisdiction)
     try {
         supabase.from("users").insert(user)
@@ -220,10 +252,68 @@ suspend fun insertUser(userId: Int,
     }
 }
 
-// Gets all users
-suspend fun getAllUsers() {
-    val users = supabase.from("users").select().decodeList<User>()
-    for (user in users) {
-        println(user)
+// Update user information
+suspend fun updateUser(userId: Int,
+                       name: String,
+                       lastName: String,
+                       email: String,
+                       password: String,
+                       faculty: String,
+                       role: String,
+                       jurisdiction: String) {
+    supabase.from("users").update (
+        {
+            set("name", name)
+            set("last_name", lastName)
+            set("email", email)
+            set("password", password)
+            set("faculty", faculty)
+            set("role", role)
+            set("jurisdiction", jurisdiction)
+        }
+    ) {
+        filter {
+            eq("user_id", userId)
+        }
     }
+}
+
+// Returns userId if login info is correct, 0 otherwise
+suspend fun checkLoginInfo(email: String, password: String): Int {
+    var userId: Int
+    try {
+        userId = supabase.from("users").select(
+            columns = Columns.list(
+                "user_id"
+            )
+        ) {
+            filter {
+                eq("email", email)
+                eq("password", password)
+            }
+        }.decodeSingle<Int>()
+    } catch (e: Exception) {
+        return 0
+    }
+
+    return userId
+}
+
+// Gets user information from user id
+suspend fun getUserInfo(userId: Int): UserInfo {
+    val userInfo = supabase.from("users").select(
+        columns = Columns.list(
+            "name",
+            "last_name",
+            "email",
+            "role",
+            "faculty"
+        )
+    ) {
+        filter {
+            eq("user_id", userId)
+        }
+    }.decodeSingle<UserInfo>()
+
+    return userInfo
 }
