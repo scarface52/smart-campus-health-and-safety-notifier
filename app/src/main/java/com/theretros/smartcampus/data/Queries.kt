@@ -11,13 +11,11 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.storage.Storage
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
 
+// Create the supabase client
 val supabase = createSupabaseClient(
     supabaseUrl = DATABASE_URL,
     supabaseKey = anon
@@ -27,10 +25,9 @@ val supabase = createSupabaseClient(
     install(Storage)
 }
 
-
 // Inserts a new incident
 @OptIn(ExperimentalTime::class)
-fun insertIncident(
+suspend fun insertIncident(
                    title: String,
                    description: String,
                    report_time: Instant,
@@ -39,84 +36,64 @@ fun insertIncident(
                    owner_id: Int,
                    status: String) {
     val incident = Incident(title, description, report_time, location, class_id, owner_id, status)
-    CoroutineScope(Dispatchers.IO).launch {
-        try {
-            supabase.from("incidents").insert(incident)
-            println("Incident successfully inserted!")
-        } catch (e: Exception) {
-            println("Error inserting incident: ${e.message}")
-            throw e
-        }
+    try {
+        supabase.from("incidents").insert(incident)
+        println("Incident successfully inserted!")
+    } catch (e: Exception) {
+        println("Error inserting incident: ${e.message}")
+        throw e
     }
 }
 
-
 // Gets followed incidents from a user id with class id and status filters
-fun getFollowedIncidents(userId: Int, classId: Int, status: String): MutableList<IncidentSummary> {
+suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): List<IncidentSummary> {
+    val followedIncidents = supabase.from("followed_incidents").select(
+        columns = Columns.list(
+            "incident_id"
+        )
+    ) {
+        filter {
+            eq("user_id", userId)
+        }
+    }.decodeList<Int>()
 
-    val followedIncidents = mutableListOf<Int>()
-    val incidents = mutableListOf<IncidentSummary>()
-
-    CoroutineScope(Dispatchers.IO).launch {
-
-        val result1 = supabase.from("followed_incidents").select(
-            columns = Columns.list(
-                "incident_id"
-            )
-        ) {
-            filter {
-                eq("user_id", userId)
+    val incidents = supabase.from("incidents").select(
+        columns = Columns.list(
+            "incident_id",
+            "title",
+            "description",
+            "report_time",
+            "class_id",
+            "status"
+        )
+    ) {
+        filter {
+            and {
+                isIn("incident_id", followedIncidents)
+                eq("class_id", classId)
+                eq("status", status)
             }
-        }.decodeList<Int>()
-        followedIncidents.addAll(result1)
+        }
+    }.decodeList<IncidentSummary>()
 
-        val result2 = supabase.from("incidents").select(
-            columns = Columns.list(
-                "incident_id",
-                "title",
-                "description",
-                "report_time",
-                "class_id",
-                "status"
-            )
-        ) {
-            filter {
-                and {
-                    isIn("incident_id", followedIncidents)
-                }
-                and {
-                    eq("class_id", classId)
-                }
-                and {
-                    eq("status", status)
-
-                }
-            }
-        }.decodeList<IncidentSummary>()
-        incidents.addAll(result2)
-    }
     return incidents
 }
 
 // Gets incident information for the map screen
-fun getIncidentMapInfo(incidentId: Int): MutableList<IncidentMapInfo> {
-    val incidentMapInfo = mutableListOf<IncidentMapInfo>()
-    CoroutineScope(Dispatchers.IO).launch {
-        val result = supabase.from("incidents").select(
-            columns = Columns.list(
-                "location",
-                "class_id"
-            )
-        ) {
-            filter {
-                eq("incident_id", incidentId)
-            }
-        }.decodeList<IncidentMapInfo>()
-        incidentMapInfo.addAll(result)
+suspend fun getIncidentMapInfo(incidentId: Int): List<IncidentMapInfo> {
+    val incidentMapInfo = supabase.from("incidents").select(
+        columns = Columns.list(
+            "location",
+            "class_id"
+        )
+    ) {
+        filter {
+            eq("incident_id", incidentId)
         }
+    }.decodeList<IncidentMapInfo>()
 
     return incidentMapInfo
-    }
+}
 
 // Gets incident details from an incident id
 suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
@@ -143,12 +120,11 @@ suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
     return incidentDetail
 }
 
-// Follows an incident if not already followed
+// Follows an incident if not already followed (database constraint exists)
 suspend fun followIncident(userId: Int, incidentId: Int) {
     val followedIncident = FollowedIncident(userId, incidentId)
     supabase.from("followed_incidents").upsert(followedIncident)
 }
-
 
 // Unfollows an incident
 suspend fun unfollowIncident(userId: Int, incidentId: Int) {
@@ -159,7 +135,6 @@ suspend fun unfollowIncident(userId: Int, incidentId: Int) {
         }
     }
 }
-
 
 // Updates incident status
 suspend fun updateIncidentStatus(incidentId: Int, status: String) {
@@ -174,38 +149,64 @@ suspend fun updateIncidentStatus(incidentId: Int, status: String) {
     }
 }
 
-
-// Inserts a new user
-fun insertUser(user_id: Int,
-               name: String,
-               last_name: String,
-               email: String,
-               password: String,
-               faculty: String,
-               role: String,
-               jurisdiction: String){
-    val user = User(user_id, name, last_name, email, password, faculty, role, jurisdiction)
-    // suspend functions must be inside a coroutine scope
-    CoroutineScope(Dispatchers.IO).launch {
-        // Data insertion
-        try {
-            supabase.from("users").insert(user)
-            println("User successfully inserted!")
-        } catch (e: Exception) {
-            println("Error inserting user: ${e.message}")
-            throw e
+// Updates incident description
+suspend fun updateIncidentDescription(incidentId: Int, description: String) {
+    supabase.from("incidents").update(
+        {
+            set("description", description)
+        }
+    ) {
+        filter {
+            eq("incident_id", incidentId)
         }
     }
 }
 
-// get all users
-fun getAllUsers() {
-    val users = mutableListOf<User>()
-    CoroutineScope(Dispatchers.IO).launch {
-        val result = supabase.from("users").select().decodeList<User>()
-        users.addAll(result)
-        for (user in users) {
-            println(user)
+// Deletes an incident
+suspend fun deleteIncident(incidentId: Int) {
+    supabase.from("incidents").delete {
+        filter {
+            eq("incident_id", incidentId)
         }
+    }
+}
+
+// Searches incidents by title or description
+suspend fun searchIncidents(title: String): List<Incident> {
+    val incidents = supabase.from("incidents").select() {
+        filter {
+            or {
+                ilike("title", "%$title%")
+                ilike("description", "%$title%")
+            }
+        }
+    }.decodeList<Incident>()
+    return incidents
+}
+
+// Inserts a new user
+suspend fun insertUser(userId: Int,
+                       name: String,
+                       lastName: String,
+                       email: String,
+                       password: String,
+                       faculty: String,
+                       role: String,
+                       jurisdiction: String){
+    val user = User(userId, name, lastName, email, password, faculty, role, jurisdiction)
+    try {
+        supabase.from("users").insert(user)
+        println("User successfully inserted!")
+    } catch (e: Exception) {
+        println("Error inserting user: ${e.message}")
+        throw e
+    }
+}
+
+// Gets all users
+suspend fun getAllUsers() {
+    val users = supabase.from("users").select().decodeList<User>()
+    for (user in users) {
+        println(user)
     }
 }
