@@ -1,6 +1,7 @@
 package com.theretros.smartcampus.data
 
 import com.theretros.smartcampus.data.dataclasses.FollowedIncident
+import com.theretros.smartcampus.data.dataclasses.FollowedIncidentClass
 import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
@@ -28,14 +29,14 @@ val supabase = createSupabaseClient(
 // Inserts a new incident
 @OptIn(ExperimentalTime::class)
 suspend fun insertIncident(
-                   title: String,
-                   description: String,
-                   report_time: Instant,
-                   location: String,
-                   class_id: Int,
-                   owner_id: Int,
-                   status: String) {
-    val incident = Incident(title, description, report_time, location, class_id, owner_id, status)
+    title: String,
+    description: String,
+    reportTime: Instant,
+    location: String,
+    classId: Int,
+    ownerId: Int,
+    status: String) {
+    val incident = Incident(title, description, reportTime, location, classId, ownerId, status)
     try {
         supabase.from("incidents").insert(incident)
         println("Incident successfully inserted!")
@@ -126,12 +127,28 @@ suspend fun followIncident(userId: Int, incidentId: Int) {
     supabase.from("followed_incidents").upsert(followedIncident)
 }
 
+// Follows an incident class if not already followed (database constraint exists)
+suspend fun followIncidentClass(userId: Int, classId: Int) {
+    val followedIncidentClass = FollowedIncidentClass(userId, classId)
+    supabase.from("followed_incident_classes").upsert(followedIncidentClass)
+}
+
 // Unfollows an incident
 suspend fun unfollowIncident(userId: Int, incidentId: Int) {
     supabase.from("followed_incidents").delete {
         filter {
             eq("user_id", userId)
             eq("incident_id", incidentId)
+        }
+    }
+}
+
+// Unfollows an incident class
+suspend fun unfollowIncidentClass(userId: Int, classId: Int) {
+    supabase.from("followed_incident_classes").delete {
+        filter {
+            eq("user_id", userId)
+            eq("class_id", classId)
         }
     }
 }
@@ -171,9 +188,9 @@ suspend fun deleteIncident(incidentId: Int) {
     }
 }
 
-// Searches incidents by title or description
+// Searches incidents by title and description
 suspend fun searchIncidents(title: String): List<Incident> {
-    val incidents = supabase.from("incidents").select() {
+    val incidents = supabase.from("incidents").select {
         filter {
             or {
                 ilike("title", "%$title%")
