@@ -1,6 +1,7 @@
 package com.theretros.smartcampus.data
 
 import com.theretros.smartcampus.data.dataclasses.Incident
+import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
 import com.theretros.smartcampus.data.dataclasses.User
 import io.github.jan.supabase.createSupabaseClient
@@ -24,6 +25,8 @@ val supabase = createSupabaseClient(
     install(Storage)
 }
 
+
+// Inserts a new incident
 @OptIn(ExperimentalTime::class)
 fun insertIncident(
                    title: String,
@@ -45,6 +48,8 @@ fun insertIncident(
     }
 }
 
+
+// Gets followed incidents from a user id with class id and status filters
 fun getFollowedIncidents(userId: Int, classId: Int, status: String): MutableList<IncidentSummary> {
 
     val followedIncidents = mutableListOf<Int>()
@@ -91,7 +96,28 @@ fun getFollowedIncidents(userId: Int, classId: Int, status: String): MutableList
     return incidents
 }
 
-// how to use suspend functions
+
+fun getIncidentMapInfo(incidentId: Int): MutableList<IncidentMapInfo> {
+    val incidentMapInfo = mutableListOf<IncidentMapInfo>()
+    CoroutineScope(Dispatchers.IO).launch {
+        val result = supabase.from("incidents").select(
+            columns = Columns.list(
+                "location",
+                "class_id"
+            )
+        ) {
+            filter {
+                eq("incident_id", incidentId)
+            }
+        }.decodeList<IncidentMapInfo>()
+        incidentMapInfo.addAll(result)
+        }
+
+    return incidentMapInfo
+    }
+
+
+// Inserts a new user
 fun insertUser(user_id: Int,
                name: String,
                last_name: String,
