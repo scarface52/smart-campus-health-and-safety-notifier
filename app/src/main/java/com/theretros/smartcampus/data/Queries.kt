@@ -160,6 +160,21 @@ suspend fun unfollowIncident(userId: Int, incidentId: Int) {
     }
 }
 
+
+// Updates incident status
+suspend fun updateIncidentStatus(incidentId: Int, status: String) {
+    supabase.from("incidents").update(
+        {
+            set("status", status)
+        }
+    ) {
+        filter {
+            eq("incident_id", incidentId)
+        }
+    }
+}
+
+
 // Inserts a new user
 fun insertUser(user_id: Int,
                name: String,
