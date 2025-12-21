@@ -1,5 +1,6 @@
 package com.theretros.smartcampus.data
 
+import com.theretros.smartcampus.data.dataclasses.FollowedIncident
 import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
@@ -37,7 +38,7 @@ fun insertIncident(
                    class_id: Int,
                    owner_id: Int,
                    status: String) {
-    val incident = Incident( title, description, report_time, location, class_id, owner_id, status)
+    val incident = Incident(title, description, report_time, location, class_id, owner_id, status)
     CoroutineScope(Dispatchers.IO).launch {
         try {
             supabase.from("incidents").insert(incident)
@@ -140,6 +141,23 @@ suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
     }.decodeSingle<IncidentDetail>()
 
     return incidentDetail
+}
+
+// Follows an incident if not already followed
+suspend fun followIncident(userId: Int, incidentId: Int) {
+    val followedIncident = FollowedIncident(userId, incidentId)
+    supabase.from("followed_incidents").upsert(followedIncident)
+}
+
+
+// Unfollows an incident
+suspend fun unfollowIncident(userId: Int, incidentId: Int) {
+    supabase.from("followed_incidents").delete {
+        filter {
+            eq("user_id", userId)
+            eq("incident_id", incidentId)
+        }
+    }
 }
 
 // Inserts a new user
