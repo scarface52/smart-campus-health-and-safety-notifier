@@ -120,50 +120,46 @@
                 android:layout_height="wrap_content"
                 android:text="@string/notification_select" />
 
-            <ToggleButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/healthButton"
-                android:layout_width="match_parent"
+                style="@style/TypeWithIconButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/heart_icon"
-                android:drawablePadding="8dp"
-                android:textOff="@string/health"
-                android:textOn="@string/health" />
+                android:text="@string/health"
+                app:icon="@drawable/heart_icon" />
 
-            <ToggleButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/safetyButton"
-                android:layout_width="match_parent"
+                style="@style/TypeWithIconButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/helmet_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:textOff="@string/safety"
-                android:textOn="@string/safety" />
+                android:text="@string/safety"
+                app:icon="@drawable/helmet_svgrepo_com" />
 
-            <ToggleButton
-                android:id="@+id/environmentalButton"
-                android:layout_width="match_parent"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/environmentButton"
+                style="@style/TypeWithIconButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/tree_svgrepo_com"
-                android:drawablePadding="8dp"
-                android:textOff="@string/environmental"
-                android:textOn="@string/environmental" />
+                android:text="@string/environmental"
+                app:icon="@drawable/tree_svgrepo_com"/>
 
-            <ToggleButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/lostAndFoundButton"
-                android:layout_width="match_parent"
+                style="@style/TypeWithIconButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/lost_and_found_icon"
-                android:drawablePadding="8dp"
-                android:textOff="@string/lost_and_found"
-                android:textOn="@string/lost_and_found" />
+                android:text="@string/lost_and_found"
+                app:icon="@drawable/lost_and_found_icon" />
 
-            <ToggleButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/maintenanceButton"
-                android:layout_width="match_parent"
+                style="@style/TypeWithIconButton"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/technical_icon"
-                android:drawablePadding="8dp"
-                android:textOff="@string/maintenance"
-                android:textOn="@string/maintenance" />
+                android:text="@string/maintenance"
+                app:icon="@drawable/technical_icon"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
 
