@@ -235,7 +235,7 @@
         android:layout_marginStart="@dimen/card_marginStart"
         android:layout_marginEnd="@dimen/card_marginEnd"
         style="@style/My.FilledButton"
-        android:text="Create"/>
+        android:text="Submit"/>
 
 
 

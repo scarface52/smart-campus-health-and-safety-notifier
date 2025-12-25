@@ -12,7 +12,9 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        >
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +25,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:layout_marginBottom="20dp"
 
                 android:background="?attr/colorSurface"
 
@@ -53,50 +54,52 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp">
+                android:layout_marginBottom="0dp">
+
                 <TextView
                     android:id="@+id/title"
+                    style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/Title"
 
                     android:text="Health Incident Title"
+                    app:layout_constraintBottom_toTopOf="@+id/typeWithIconButton"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/starButton"
+                    style="@style/Widget.Material3.Button.IconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:padding="6dp"
-
-                    style="@style/Widget.Material3.Button.IconButton"
-
-                    app:icon="@drawable/ic_empty_star"
-                    app:iconTint="?attr/colorPrimary"
-                    app:rippleColor="?attr/colorHighlight"
-
+                    android:layout_marginTop="-5dp"
                     android:contentDescription="Favorite button"
 
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:minWidth="0dp"
+
+                    android:minHeight="0dp"
+                    android:padding="6dp"
+                    app:icon="@drawable/ic_empty_star"
+
+                    app:iconTint="?attr/colorPrimary"
+
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:rippleColor="?attr/colorHighlight" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/typeWithIconButton"
+                    style="@style/TypeWithIconButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Health"
+                    app:icon="@drawable/heart_icon"
+                    app:layout_constraintBottom_toBottomOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Place anything inside here -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/typeWithIconButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TypeWithIconButton"
-                android:text="Health"
-                app:icon="@drawable/heart_icon" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
