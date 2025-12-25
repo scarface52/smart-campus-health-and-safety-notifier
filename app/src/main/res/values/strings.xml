@@ -52,5 +52,16 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="resolved">Resolved</string>
-    <string name="description">Description</string>"
+    <string name="description">Description</string>
+    <string name="avatar_description">Avatar</string>
+    <string name="placeholder_name">Jane Doe</string>
+    <string name="placeholder_email">jane_doe52@example.com</string>
+    <string name="preferences">Preferences</string>
+    <string name="notification_select">Select the incident types you want to get notified about:</string>
+    <string name="notifications">Notifications</string>
+    <string name="health">Health</string>
+    <string name="lost_and_found">Lost and Found</string>
+    <string name="safety">Safety</string>
+    <string name="environmental">Environmental</string>
+    <string name="maintenance">Maintenance</string>"
 </resources>

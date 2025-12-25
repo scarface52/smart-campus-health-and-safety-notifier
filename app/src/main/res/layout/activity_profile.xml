@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity"
+    android:orientation="vertical"
+    android:background="?attr/android:colorBackground">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            android:layout_marginBottom="20dp"
+            >
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+
+                android:background="?attr/colorSurface"
+
+                app:title="Profile"
+                app:titleTextColor="?attr/colorOnSurface"
+
+                app:navigationIcon="@drawable/ic_menu_24"
+                app:navigationIconTint="?attr/colorOnSurface"
+                />
+
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profileCard"
+        style="@style/CardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/avatar_description"
+                android:src="@drawable/empty_avatar" />
+
+            <TextView
+                android:id="@+id/nameView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/placeholder_name" />
+
+            <TextView
+                android:id="@+id/emailView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/placeholder_email" />
+
+            <TextView
+                android:id="@+id/roleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Role: " />
+
+            <TextView
+                android:id="@+id/unitView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Unit: " />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/preferencesView"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginHorizontal="28dp"
+        android:text="@string/preferences" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/preferencesCard"
+        style="@style/CardStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/notificationsTitleView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notifications" />
+
+            <TextView
+                android:id="@+id/notificationsDescriptionView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_select" />
+
+            <ToggleButton
+                android:id="@+id/healthButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/heart_icon"
+                android:drawablePadding="8dp"
+                android:textOff="@string/health"
+                android:textOn="@string/health" />
+
+            <ToggleButton
+                android:id="@+id/safetyButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/helmet_svgrepo_com"
+                android:drawablePadding="8dp"
+                android:textOff="@string/safety"
+                android:textOn="@string/safety" />
+
+            <ToggleButton
+                android:id="@+id/environmentalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/tree_svgrepo_com"
+                android:drawablePadding="8dp"
+                android:textOff="@string/environmental"
+                android:textOn="@string/environmental" />
+
+            <ToggleButton
+                android:id="@+id/lostAndFoundButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/lost_and_found_icon"
+                android:drawablePadding="8dp"
+                android:textOff="@string/lost_and_found"
+                android:textOn="@string/lost_and_found" />
+
+            <ToggleButton
+                android:id="@+id/maintenanceButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/technical_icon"
+                android:drawablePadding="8dp"
+                android:textOff="@string/maintenance"
+                android:textOn="@string/maintenance" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

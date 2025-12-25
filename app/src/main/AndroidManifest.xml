@@ -14,9 +14,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampus">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.SmartCampus"/>
+            android:theme="@style/Theme.SmartCampus" />
         <activity
             android:name=".NotificationDetailsActivity"
             android:exported="false"
@@ -27,13 +39,7 @@
         <activity
             android:name=".CreateNotificationActivity"
             android:exported="true"
-            android:theme="@style/Theme.SmartCampus">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.SmartCampus" />
     </application>
 
 </manifest>
