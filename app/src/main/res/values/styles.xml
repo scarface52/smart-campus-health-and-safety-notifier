@@ -61,6 +61,8 @@
         <item name="boxCornerRadiusTopEnd">12dp</item>
         <item name="boxCollapsedPaddingTop">0dp</item>
 
+        <item name="boxStrokeErrorColor">?attr/colorError</item>
+
         <item name="helperTextEnabled">false</item>
     </style>
 
