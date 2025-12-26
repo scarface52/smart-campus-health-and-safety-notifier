@@ -282,7 +282,7 @@ suspend fun updateUser(userId: Int,
 suspend fun checkLoginInfo(email: String, password: String): Int {
     var userId: Int
     try {
-        userId = supabase.from("users").select(
+        val result = supabase.from("users").select(
             columns = Columns.list(
                 "user_id"
             )
@@ -291,8 +291,10 @@ suspend fun checkLoginInfo(email: String, password: String): Int {
                 eq("email", email)
                 eq("password", password)
             }
-        }.decodeSingle<Int>()
+        }.decodeList<Map<String, Int>>()
+        userId = result.firstOrNull()?.get("user_id") ?: 0
     } catch (e: Exception) {
+        println("message: ${e.message}")
         return 0
     }
 
