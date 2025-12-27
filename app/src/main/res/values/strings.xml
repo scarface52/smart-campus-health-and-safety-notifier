@@ -67,5 +67,8 @@
     <string name="send_code">Send Code</string>
     <string name="reset_password_hint">Enter your email address, and we\'ll send you a code to reset your password.</string>
     <string name="reset_password"><b>Reset Password</b></string>
+    <string name="code">Code</string>
+    <string name="enter_the_code">Enter the code that we sent to your email address.</string>
+    <string name="confirm">Confirm</string>
     "
 </resources>
