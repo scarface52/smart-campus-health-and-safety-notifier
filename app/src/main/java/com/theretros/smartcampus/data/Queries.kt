@@ -3,6 +3,7 @@ package com.theretros.smartcampus.data
 import com.theretros.smartcampus.data.dataclasses.FollowedIncident
 import com.theretros.smartcampus.data.dataclasses.FollowedIncidentClass
 import com.theretros.smartcampus.data.dataclasses.Incident
+import com.theretros.smartcampus.data.dataclasses.IncidentClassId
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
@@ -17,6 +18,7 @@ import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.Storage
+import kotlin.collections.toMutableSet
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
 
@@ -326,4 +328,19 @@ suspend fun getUserInfo(userId: Int): UserInfo {
     }.decodeSingle<UserInfo>()
 
     return userInfo
+}
+
+// Gets followed incident classes from a user id
+suspend fun getFollowedIncidentClasses(userId: Int): MutableSet<Int> {
+    val followedIncidentClasses = supabase.from("followed_incident_classes").select(
+        columns = Columns.list(
+            "class_id"
+        )
+    ){
+        filter {
+            eq("user_id", userId)
+        }
+    }.decodeList<IncidentClassId>().map { it.class_id }
+
+    return followedIncidentClasses.toMutableSet()
 }
