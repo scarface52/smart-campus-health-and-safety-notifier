@@ -71,7 +71,7 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
         filter {
             eq("user_id", userId)
         }
-    }.decodeList<Int>()
+    }.decodeList<Map<String, Int>>().map { it["incident_id"]!! }
 
     if (followedIncidents.isEmpty()) return emptyList()
 
@@ -116,11 +116,8 @@ suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int? = null, stat
                 if (status != null) eq("status", status)
             }
         }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
-    println("message: ")
-    println(incidentsWithFollow)
     return incidentsWithFollow
 }
-
 
 // Gets incident information for the map screen
 suspend fun getIncidentMapInfo(incidentId: Int): List<IncidentMapInfo> {
@@ -232,7 +229,17 @@ suspend fun deleteIncident(incidentId: Int) {
 
 // Searches incidents by title and description
 suspend fun searchIncidents(title: String): List<Incident> {
-    val incidents = supabase.from("incidents").select {
+    val incidents = supabase.from("incidents").select(
+        columns = Columns.list(
+            "title",
+            "description",
+            "report_time",
+            "location",
+            "class_id",
+            "owner_id",
+            "status"
+        )
+    ) {
         filter {
             or {
                 ilike("title", "%$title%")
@@ -240,19 +247,19 @@ suspend fun searchIncidents(title: String): List<Incident> {
             }
         }
     }.decodeList<Incident>()
+
     return incidents
 }
 
 // Inserts a new user
-suspend fun insertUser(userId: Int,
-                       name: String,
+suspend fun insertUser(name: String,
                        lastName: String,
                        email: String,
                        password: String,
                        faculty: String,
                        role: String,
                        jurisdiction: String) {
-    val user = User(userId, name, lastName, email, password, faculty, role, jurisdiction)
+    val user = User(name, lastName, email, password, faculty, role, jurisdiction)
     try {
         supabase.from("users").insert(user)
         println("User successfully inserted!")
