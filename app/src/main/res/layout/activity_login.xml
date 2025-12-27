@@ -39,7 +39,7 @@
                 android:id="@+id/emailFieldLayout"
                 style="@style/TextInputLayout"
                 android:hint="@string/email"
-                app:startIconDrawable="@drawable/mail_icon">
+                app:startIconDrawable="@drawable/ic_mail_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailField"
@@ -51,7 +51,7 @@
                 android:id="@+id/passwordFieldLayout"
                 style="@style/TextInputLayout"
                 android:hint="@string/password"
-                app:startIconDrawable="@drawable/lock_icon"
+                app:startIconDrawable="@drawable/ic_lock_24"
                 android:layout_marginBottom="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText

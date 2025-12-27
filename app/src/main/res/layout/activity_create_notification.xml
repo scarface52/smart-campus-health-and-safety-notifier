@@ -66,7 +66,7 @@
                 android:id="@+id/titleTextField"
                 style="@style/TextInputLayout"
                 android:hint="Title"
-                app:startIconDrawable="@drawable/title_icon">
+                app:startIconDrawable="@drawable/ic_title_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText"
@@ -78,7 +78,7 @@
                 android:id="@+id/descriptionTextField"
                 style="@style/TextInputLayout"
                 android:hint="Description"
-                app:startIconDrawable="@drawable/text_description_icon"
+                app:startIconDrawable="@drawable/ic_description_24"
                 android:gravity="top"
                 android:layout_marginBottom="0dp">
 
@@ -199,7 +199,7 @@
                 android:textColor="?attr/colorPrimary"
                 app:iconTint="?attr/colorPrimary"
 
-                app:icon="@drawable/camera_icon"
+                app:icon="@drawable/ic_camera_24"
                 app:iconSize="24dp"
                 android:gravity="center"
                 app:iconGravity="textStart"

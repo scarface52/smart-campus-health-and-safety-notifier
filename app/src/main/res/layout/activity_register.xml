@@ -38,7 +38,7 @@
                 android:id="@+id/nameBox"
                 style="@style/TextInputLayout"
                 android:hint="@string/name"
-                app:startIconDrawable="@drawable/person_icon">
+                app:startIconDrawable="@drawable/ic_person_24">
 
                 <com.google.android.material.textfield.TextInputEditText style="@style/TextInputEditText" />
 
@@ -50,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/email"
-                app:startIconDrawable="@drawable/mail_icon">
+                app:startIconDrawable="@drawable/ic_mail_24">
 
                 <com.google.android.material.textfield.TextInputEditText style="@style/TextInputEditText" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/password"
-                app:startIconDrawable="@drawable/lock_icon">
+                app:startIconDrawable="@drawable/ic_lock_24">
 
                 <com.google.android.material.textfield.TextInputEditText style="@style/TextInputEditText" />
 
@@ -72,7 +72,7 @@
                 android:id="@+id/facultyBox"
                 style="@style/TextInputLayout"
                 android:hint="@string/faculty"
-                app:startIconDrawable="@drawable/location_icon">
+                app:startIconDrawable="@drawable/ic_location_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     style="@style/TextInputEditText" />

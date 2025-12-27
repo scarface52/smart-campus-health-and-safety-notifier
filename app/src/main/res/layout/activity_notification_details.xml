@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Health"
-                    app:icon="@drawable/heart_icon"
+                    app:icon="@drawable/ic_health_24"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
 
@@ -110,7 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:contentDescription="calendar icon"
-                    android:src="@drawable/calendar_icon"
+                    android:src="@drawable/ic_calendar_24"
                     app:tint="?attr/colorOnSurfaceVariant"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -211,7 +211,7 @@
                 style="@style/body"
                 android:text="Location"
 
-                app:drawableStartCompat="@drawable/location_icon"
+                app:drawableStartCompat="@drawable/ic_location_24"
 
                 android:drawablePadding="8dp"
 

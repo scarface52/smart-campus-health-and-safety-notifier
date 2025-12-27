@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/health"
-                app:icon="@drawable/heart_icon" />
+                app:icon="@drawable/ic_health_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/safetyButton"
@@ -134,7 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/safety"
-                app:icon="@drawable/helmet_svgrepo_com" />
+                app:icon="@drawable/ic_safety_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/environmentButton"
@@ -142,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/environmental"
-                app:icon="@drawable/tree_svgrepo_com"/>
+                app:icon="@drawable/ic_environmental_24"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/lostAndFoundButton"
@@ -150,7 +150,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lost_and_found"
-                app:icon="@drawable/lost_and_found_icon" />
+                app:icon="@drawable/ic_lost_and_found_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/maintenanceButton"
@@ -158,7 +158,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/maintenance"
-                app:icon="@drawable/technical_icon"
+                app:icon="@drawable/ic_maintenance_24"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
         </LinearLayout>
