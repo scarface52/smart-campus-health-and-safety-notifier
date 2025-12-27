@@ -79,7 +79,7 @@
 
                     android:minHeight="0dp"
                     android:padding="6dp"
-                    app:icon="@drawable/ic_empty_star"
+                    app:icon="@drawable/ic_empty_star_24"
 
                     app:iconTint="?attr/colorPrimary"
 
