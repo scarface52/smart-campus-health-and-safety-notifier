@@ -63,5 +63,9 @@
     <string name="lost_and_found">Lost and Found</string>
     <string name="safety">Safety</string>
     <string name="environmental">Environmental</string>
-    <string name="maintenance">Maintenance</string>"
+    <string name="maintenance">Maintenance</string>
+    <string name="send_code">Send Code</string>
+    <string name="reset_password_hint">Enter your email address, and we\'ll send you a code to reset your password.</string>
+    <string name="reset_password"><b>Reset Password</b></string>
+    "
 </resources>
