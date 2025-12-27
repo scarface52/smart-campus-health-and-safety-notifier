@@ -12,7 +12,7 @@ data class IncidentWithFollowDto @OptIn(ExperimentalTime::class) constructor(
     val report_time: Instant,
     val class_id: Int,
     val status: String,
-    val is_followed: List<FollowedIncidentDto>
+    val followed_incidents: List<FollowedIncidentDto> = emptyList()
 )
 
 @Serializable
@@ -29,5 +29,5 @@ fun IncidentWithFollowDto.toDomain(): IncidentWithFollow =
         report_time = report_time,
         class_id = class_id,
         status = status,
-        is_followed = is_followed.isNotEmpty()
+        is_followed = followed_incidents.isNotEmpty()
     )

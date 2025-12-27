@@ -31,6 +31,14 @@ val supabase = createSupabaseClient(
     install(Storage)
 }
 
+val classes = mapOf(
+    1 to "Health",
+    2 to "Safety",
+    3 to "Environmental",
+    4 to "Lost and Found",
+    5 to "Maintenance"
+)
+
 // Inserts a new incident
 @OptIn(ExperimentalTime::class)
 suspend fun insertIncident(
@@ -87,7 +95,7 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
 }
 
 // Gets incidents with follow status from a user id with class id and status filters, ordered by date
-suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int, status: String): List<IncidentWithFollow> {
+suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int? = null, status: String? = null): List<IncidentWithFollow> {
     val incidentsWithFollow = supabase.from("incidents").select(
             Columns.raw("""
                 incident_id,
@@ -102,12 +110,12 @@ suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int, status: Stri
             """)
         ) {
             filter {
-                eq("class_id", classId)
-                eq("status", status)
-                eq("followed_incidents.user_id", userId)
+                if (classId != null) eq("class_id", classId)
+                if (status != null) eq("status", status)
             }
         }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
-
+    println("message: ")
+    println(incidentsWithFollow)
     return incidentsWithFollow
 }
 
