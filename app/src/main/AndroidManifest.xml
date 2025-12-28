@@ -16,54 +16,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartCampus">
         <activity
-            android:name=".MapPickActivity"
+            android:name=".NotificationDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".EnterCodeActivity"
             android:exported="false" />
         <activity
-            android:name=".ResetPasswordActivity"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SmartCampus" />
-        <activity
-            android:name=".NotificationDetailsActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SmartCampus">
-        </activity>
-        <activity
-            android:name=".NotificationListActivity"
-            android:exported="false"
-            android:theme="@style/Theme.SmartCampus">
-        </activity>
-        <activity
-            android:name=".MainActivity"
+            android:name=".NewPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateNotificationActivity"
-            android:exported="true"
-            android:theme="@style/Theme.SmartCampus">
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:theme="@style/Theme.SmartCampus">
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapPickActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="null" />
+            android:value="AIzaSyDXfDGX2cE3tnmgyso8MItctvAV64uUKkk" />
     </application>
 
 </manifest>
