@@ -8,119 +8,54 @@
     tools:context=".MainActivity"
     android:background="?attr/colorSurfaceVariant">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/incidentCard"
-        style="@style/CardStyle"
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="match_parent">
 
-        <!-- YOU MUST place a layout inside -->
-        <LinearLayout
+        <!-- MAIN CONTENT -->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginHorizontal="12dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/typeWithIconButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/TypeWithIconButton"
-                    android:text="Health"
-                    app:icon="@drawable/heart_icon"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-                <ImageButton
-                    android:id="@+id/starButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:src="@drawable/ic_empty_star"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:padding="0dp"
-                    app:tint="?attr/colorPrimary"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                android:layout_marginBottom="0dp"
+                android:fitsSystemWindows="false">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_menu_24"
+                    app:navigationIconTint="?attr/colorOnSurfaceVariant"
+                    app:titleTextColor="?attr/colorOnSurfaceVariant"
+                    android:layout_marginBottom="0dp"/>
+            </com.google.android.material.appbar.AppBarLayout>
 
-            <!-- Place anything inside here -->
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/Title"
-
-                android:text="Health Incident Title" />
-            <LinearLayout
+            <!-- Fragment container -->
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginTop="0dp"
+                android:layout_marginHorizontal="12dp"
 
-                <TextView
-                    android:id="@+id/description"
-                    style="@style/body"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.95"
-                    android:maxLines="3"
-                    android:ellipsize="end"
-                    android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. " />
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.05" />
-            </LinearLayout>
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
-                <TextView
-                    android:id="@+id/date"
-                    style="@style/body"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="15 July 2025"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-                <ImageView
-                    android:id="@+id/statusIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/tick_circle"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/statusText"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:id="@+id/statusText"
-                    style="@style/Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Resolved"
-                    android:textColor="?attr/colorSuccess"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navView"
+            android:layout_width="280dp"
+            android:minWidth="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:headerLayout="@layout/nav_header"
+            />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
+    </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
