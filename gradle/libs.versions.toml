@@ -13,7 +13,9 @@ supabase-kt = "3.2.6"
 ktor = "3.3.3"
 navigationFragmentKtx = "2.6.0"
 navigationUiKtx = "2.6.0"
-datastore="1.1.1"
+datastore="1.2.0"
+location="21.3.0"
+maps = "19.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,6 +27,10 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+
+google-location= { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
+google-maps= { group = "com.google.android.gms", name = "play-services-maps", version.ref = "maps" }
+
 
 # supabase libs
 supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabase-kt" }

@@ -57,25 +57,27 @@
                 android:hint="Select Type">
 
                 <AutoCompleteTextView
-                    android:id="@+id/auto_complete_txt"
-                    style="@style/Widget.App.AutoCompleteTextView" />
+                    android:id="@+id/typeAutoComplete"
+                    style="@style/Widget.App.AutoCompleteTextView"
+                    android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/titleTextField"
+                android:id="@+id/titleTextLayout"
                 style="@style/TextInputLayout"
                 android:hint="Title"
                 app:startIconDrawable="@drawable/ic_title_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/titleTextField"
                     style="@style/TextInputEditText"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/descriptionTextField"
+                android:id="@+id/descriptionTextLayout"
                 style="@style/TextInputLayout"
                 android:hint="Description"
                 app:startIconDrawable="@drawable/ic_description_24"
@@ -83,6 +85,7 @@
                 android:layout_marginBottom="0dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/descriptionTextField"
                     style="@style/TextInputEditText"
                     android:lines="4"
                     android:gravity="top"
@@ -110,7 +113,7 @@
 
 
             <RadioGroup
-                android:id="@+id/choice_group"
+                android:id="@+id/locationChoice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -137,10 +140,11 @@
             </RadioGroup>
 
             <!-- Minimap widget will be added -->
-            <View
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
-                android:background="?attr/colorPrimary"/>
+                android:layout_height="78dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -192,7 +196,7 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/filled_button"
+                android:id="@+id/buttonAddPhoto"
                 style="@style/My.FilledButton"
 
                 android:backgroundTint="?attr/colorSurfaceVariant"
@@ -229,7 +233,7 @@
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/create"
+        android:id="@+id/buttonSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/card_marginStart"
