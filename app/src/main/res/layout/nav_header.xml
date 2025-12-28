@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="280dp"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:padding="4dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profileLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+
+            android:src="@drawable/empty_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameText"
+            style="@style/Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jane Doe"
+            android:textSize="@dimen/title_large"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avatar" />
+
+        <TextView
+            android:id="@+id/mailText"
+            style="@style/body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="jane_doe@example.com"
+            android:textSize="@dimen/body_large"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorTextMuted"
+
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileLayout"
+        />
+
+    <LinearLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonIncidents"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:cornerRadius="12dp"
+            app:strokeWidth="0dp"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            android:text="Incident Notifications"
+            app:icon="@drawable/ic_bell_24"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonNew"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:cornerRadius="12dp"
+            app:strokeWidth="0dp"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            android:text="New Notification"
+            app:icon="@drawable/ic_add_24"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonMap"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="8dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:cornerRadius="12dp"
+            app:strokeWidth="0dp"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            android:text="See Locations"
+            app:icon="@drawable/ic_location_24"
+            android:layout_marginBottom="236dp"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutButton"
+        style="@style/My.FilledButton"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="?attr/colorSecondary"
+        android:text="Log out"
+
+        app:icon="@drawable/ic_logout_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/menuLayout"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
