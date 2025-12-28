@@ -98,10 +98,10 @@ class MainActivity : AppCompatActivity() {
             }
             drawerLayout.closeDrawers()
         }
-        headerView.findViewById<MaterialButton>(R.id.buttonIncidents).setOnClickListener {
-            if (currentFragment != "See Locations") {
-                openFragment(NotificationListFragment(), true)
-                currentFragment = "See Locations"
+        headerView.findViewById<MaterialButton>(R.id.buttonMap).setOnClickListener {
+            if (currentFragment != "Incident Map") {
+                openFragment(IncidentMapFragment(), true)
+                currentFragment = "Incident Map"
             }
             drawerLayout.closeDrawers()
             it.backgroundTintList

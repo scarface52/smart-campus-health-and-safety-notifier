@@ -138,18 +138,15 @@ suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int? = null, stat
 }
 
 // Gets incident information for the map screen
-suspend fun getIncidentMapInfo(incidentId: Int): List<IncidentMapInfo> {
+suspend fun getIncidentMapInfo(): List<IncidentMapInfo> {
     val incidentMapInfo = supabase.from("incidents").select(
         columns = Columns.list(
             "location",
-            "class_id"
+            "class_id",
+            "incident_id"
         )
-    ) {
-        filter {
-            eq("incident_id", incidentId)
-        }
-    }.decodeList<IncidentMapInfo>()
-
+    ).decodeList<IncidentMapInfo>()
+    println("Map info size: ${incidentMapInfo.size}")
     return incidentMapInfo
 }
 
