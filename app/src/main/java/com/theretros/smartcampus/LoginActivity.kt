@@ -76,8 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     val sessionManager = SessionManager(this@LoginActivity)
                     sessionManager.saveSession(userSessionCredentials.user_id.toString(), userSessionCredentials.role != "user")
 
-                    val intent = Intent(this@LoginActivity, NotificationListActivity::class.java)
-                    intent.putExtra("userId", userSessionCredentials.user_id)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
 
                     // Optional: Finish current activity so user can't "Go Back" to login
@@ -91,6 +90,16 @@ class LoginActivity : AppCompatActivity() {
                     passwordEditText.setText("")
                     passwordFieldLayout.error = "Invalid email or password"
                 }
+            }
+
+            signUpButton.setOnClickListener {
+                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+                startActivity(intent)
+            }
+
+            forgotPasswordButton.setOnClickListener {
+                val intent = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
+                startActivity(intent)
             }
         }
     }
