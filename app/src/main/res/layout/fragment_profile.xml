@@ -6,36 +6,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity"
     android:orientation="vertical"
-    android:background="?attr/android:colorBackground">
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp"
-            >
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-
-                android:background="?attr/colorSurface"
-
-                app:title="Profile"
-                app:titleTextColor="?attr/colorOnSurface"
-
-                app:navigationIcon="@drawable/ic_menu_24"
-                app:navigationIconTint="?attr/colorOnSurface"
-                />
-
-        </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    android:background="?attr/android:colorBackground"
+    android:layout_marginTop="30dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/profileCard"
