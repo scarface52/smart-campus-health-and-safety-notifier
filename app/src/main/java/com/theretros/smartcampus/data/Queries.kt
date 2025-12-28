@@ -63,7 +63,7 @@ suspend fun insertIncident(
 }
 
 // Gets followed incidents from a user id with class id and status filters, ordered by date
-suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): List<IncidentSummary> {
+suspend fun getFollowedIncidents(userId: Int): List<IncidentSummary> {
     val followedIncidents = supabase.from("followed_incidents").select(
         columns = Columns.list(
             "incident_id"
@@ -89,8 +89,6 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
         order(column = "report_time", order = Order.DESCENDING)
         filter {
             isIn("incident_id", followedIncidents)
-            eq("class_id", classId)
-            eq("status", status)
         }
     }.decodeList<IncidentSummary>()
 
