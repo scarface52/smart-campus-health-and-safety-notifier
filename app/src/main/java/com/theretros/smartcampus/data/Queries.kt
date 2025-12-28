@@ -13,6 +13,7 @@ import com.theretros.smartcampus.data.dataclasses.IncidentWithFollowDto
 import com.theretros.smartcampus.data.dataclasses.User
 import com.theretros.smartcampus.data.dataclasses.UserId
 import com.theretros.smartcampus.data.dataclasses.UserInfo
+import com.theretros.smartcampus.data.dataclasses.UserSessionCredentials
 import com.theretros.smartcampus.data.dataclasses.toDomain
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -64,7 +65,7 @@ suspend fun insertIncident(
 }
 
 // Gets followed incidents from a user id with class id and status filters, ordered by date
-suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): List<IncidentSummary> {
+suspend fun getFollowedIncidents(userId: Int): List<IncidentSummary> {
     val followedIncidents = supabase.from("followed_incidents").select(
         columns = Columns.list(
             "incident_id"
@@ -90,8 +91,6 @@ suspend fun getFollowedIncidents(userId: Int, classId: Int, status: String): Lis
         order(column = "report_time", order = Order.DESCENDING)
         filter {
             isIn("incident_id", followedIncidents)
-            eq("class_id", classId)
-            eq("status", status)
         }
     }.decodeList<IncidentSummary>()
 
@@ -231,17 +230,19 @@ suspend fun deleteIncident(incidentId: Int) {
 }
 
 // Searches incidents by title and description
-suspend fun searchIncidents(title: String): List<Incident> {
+suspend fun searchIncidents(title: String): List<IncidentWithFollow> {
     val incidents = supabase.from("incidents").select(
-        columns = Columns.list(
-            "title",
-            "description",
-            "report_time",
-            "location",
-            "class_id",
-            "owner_id",
-            "status"
-        )
+        Columns.raw("""
+                incident_id,
+                title,
+                description,
+                report_time,
+                class_id,
+                status,
+                followed_incidents (
+                    user_id
+                )
+            """)
     ) {
         filter {
             or {
@@ -249,8 +250,7 @@ suspend fun searchIncidents(title: String): List<Incident> {
                 ilike("description", "%$title%")
             }
         }
-    }.decodeList<Incident>()
-
+    }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
     return incidents
 }
 
@@ -308,26 +308,27 @@ suspend fun updateUser(userId: Int,
 }
 
 // Returns userId if login info is correct, 0 otherwise
-suspend fun checkLoginInfo(email: String, password: String): Int {
-    var userId: Int
+suspend fun checkLoginInfo(email: String, password: String): UserSessionCredentials {
     try {
         val result = supabase.from("users").select(
             columns = Columns.list(
-                "user_id"
+                "user_id",
+                            "role"
             )
         ) {
             filter {
                 eq("email", email)
                 eq("password", password)
             }
-        }.decodeList<Map<String, Int>>()
-        userId = result.firstOrNull()?.get("user_id") ?: 0
+        }.decodeSingle<UserSessionCredentials>()
+        return result
+
     } catch (e: Exception) {
         println("message: ${e.message}")
-        return 0
+        return UserSessionCredentials(0, "")
     }
 
-    return userId
+
 }
 
 // Gets user information from user id
