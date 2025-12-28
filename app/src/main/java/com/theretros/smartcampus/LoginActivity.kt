@@ -64,17 +64,20 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            var userId: Int
 
             lifecycleScope.launch {
 
-                val userId = withContext(Dispatchers.IO) {
+                val userSessionCredentials  = withContext(Dispatchers.IO) {
                     checkLoginInfo(email, password)
                 }
-                println("userId: $userId")
-                if (userId != 0) {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra("userId", userId)
+                println("userId: ${userSessionCredentials.user_id}")
+                if (userSessionCredentials.user_id != 0) {
+
+                    val sessionManager = SessionManager(this@LoginActivity)
+                    sessionManager.saveSession(userSessionCredentials.user_id.toString(), userSessionCredentials.role != "user")
+
+                    val intent = Intent(this@LoginActivity, NotificationListActivity::class.java)
+                    intent.putExtra("userId", userSessionCredentials.user_id)
                     startActivity(intent)
 
                     // Optional: Finish current activity so user can't "Go Back" to login
