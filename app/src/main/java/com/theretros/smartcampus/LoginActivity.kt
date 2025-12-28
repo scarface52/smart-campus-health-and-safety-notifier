@@ -36,7 +36,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var elements: Array<View>
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -62,14 +61,14 @@ class LoginActivity : AppCompatActivity() {
     
     fun setupListeners(){
         loginButton.setOnClickListener {
-            val email = emailEditText.text.toString()
-            val password = passwordEditText.text.toString()
-
+            val email = emailEditText.text.toString().trim()
+            val password = passwordEditText.text.toString().trim()
+            println(email)
+            println(password)
             lifecycleScope.launch {
 
-                val userSessionCredentials  = withContext(Dispatchers.IO) {
-                    checkLoginInfo(email, password)
-                }
+                val userSessionCredentials  = checkLoginInfo(email, password)
+
                 println("userId: ${userSessionCredentials.user_id}")
                 if (userSessionCredentials.user_id != 0) {
 
@@ -91,16 +90,15 @@ class LoginActivity : AppCompatActivity() {
                     passwordFieldLayout.error = "Invalid email or password"
                 }
             }
+        }
+        signUpButton.setOnClickListener {
+            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
-            signUpButton.setOnClickListener {
-                val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
-                startActivity(intent)
-            }
-
-            forgotPasswordButton.setOnClickListener {
-                val intent = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
-                startActivity(intent)
-            }
+        forgotPasswordButton.setOnClickListener {
+            val intent = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
+            startActivity(intent)
         }
     }
 

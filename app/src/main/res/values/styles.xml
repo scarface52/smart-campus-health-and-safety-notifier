@@ -33,16 +33,21 @@
         <item name="android:layout_margin">0dp</item>
 
         <item name="android:textSize">13sp</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">@color/content_inverse_selector</item>
+
+        <item name="backgroundTint">@color/bg_inverse_selector</item>
 
         <item name="iconGravity">textStart</item>
-        <item name="iconTint">?attr/colorPrimary</item>
+        <item name="iconTint">@color/content_inverse_selector</item>
         <item name="iconSize">16dp</item>
         <item name="strokeColor">?attr/colorPrimary</item>
         <item name="strokeWidth">2dp</item>
         <item name="cornerRadius">50dp</item>
 
         <item name="android:enabled">false</item>
+
+        <item name="android:checkable">true</item>
+        <item name="android:checked">false</item>
     </style>
     <style name="TextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
 

@@ -10,32 +10,6 @@
     android:orientation="vertical"
     android:background="?attr/android:colorBackground">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="4dp"
-            android:layout_marginBottom="20dp"
-            >
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-
-                android:background="?attr/colorSurface"
-
-                app:title="Create Notification"
-                app:titleTextColor="?attr/colorOnSurface"
-
-                app:navigationIcon="@drawable/ic_menu_24"
-                app:navigationIconTint="?attr/colorOnSurface"
-                />
-
-        </com.google.android.material.appbar.AppBarLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 
@@ -43,7 +17,8 @@
         android:id="@+id/descriptionCard"
         style="@style/CardStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,7 +31,7 @@
                 style="@style/Widget.App.TextInputLayout.Dropdown"
                 android:hint="Select Type">
 
-                <AutoCompleteTextView
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/typeAutoComplete"
                     style="@style/Widget.App.AutoCompleteTextView"
                     android:inputType="none"/>

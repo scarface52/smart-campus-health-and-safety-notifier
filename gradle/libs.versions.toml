@@ -33,7 +33,6 @@ androidx-datastore = { group = "androidx.datastore", name = "datastore-preferenc
 google-location= { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
 google-maps= { group = "com.google.android.gms", name = "play-services-maps", version.ref = "maps" }
 
-
 # supabase libs
 supabase-bom = { group = "io.github.jan-tennert.supabase", name = "bom", version.ref = "supabase-kt" }
 supabase-kt = { group = "io.github.jan-tennert.supabase", name = "supabase-kt" }

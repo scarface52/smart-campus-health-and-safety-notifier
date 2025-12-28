@@ -90,8 +90,6 @@ class NotificationCardAdapter(private val notificationList: List<IncidentWithFol
             val formattedDate = formatter.format(incident.report_time.toJavaInstant())
 
             holder.dateTextView.text = formattedDate
-            //val formatter = DateTimeFormatter("dd-MMMM-yyyy")
-            //holder.dateTextView.text = incident.report_time.toString()
             holder.statusIcon.setImageResource(if (incident.status == "Resolved") R.drawable.tick_circle else R.drawable.ic_circle_24)
 
             if (incident.status != "Resolved") {
@@ -142,10 +140,8 @@ class NotificationCardAdapter(private val notificationList: List<IncidentWithFol
         holder.card.setOnClickListener {
             val intent = Intent(con, NotificationDetailsActivity::class.java)
 
-            // 3. Optional: Pass data to the next activity
             intent.putExtra("incidentId", incident.incident_id)
 
-            // 4. Start the Activity
             con.startActivity(intent)
         }
     }

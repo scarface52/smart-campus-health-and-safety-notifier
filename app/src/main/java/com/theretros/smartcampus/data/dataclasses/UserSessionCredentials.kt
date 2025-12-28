@@ -6,4 +6,6 @@ import kotlinx.serialization.Serializable
 data class UserSessionCredentials(
     val user_id: Int,
     val role: String,
+    val email: String,
+    val password: String
 )

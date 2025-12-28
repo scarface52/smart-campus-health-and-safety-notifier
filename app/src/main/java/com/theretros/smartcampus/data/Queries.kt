@@ -1,5 +1,7 @@
 package com.theretros.smartcampus.data
 
+import android.content.ContentResolver
+import android.net.Uri
 import com.theretros.smartcampus.data.dataclasses.Email
 import com.theretros.smartcampus.data.dataclasses.FollowedIncident
 import com.theretros.smartcampus.data.dataclasses.FollowedIncidentClass
@@ -7,6 +9,7 @@ import com.theretros.smartcampus.data.dataclasses.ImageUrl
 import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentClassId
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
+import com.theretros.smartcampus.data.dataclasses.IncidentId
 import com.theretros.smartcampus.data.dataclasses.IncidentImage
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
@@ -24,6 +27,9 @@ import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 import kotlin.collections.toMutableSet
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -53,13 +59,20 @@ suspend fun insertIncident(
     title: String,
     description: String,
     reportTime: Instant,
-    location: String,
+    location: String?,
     classId: Int,
     ownerId: Int,
-    status: String) {
+    status: String): Int {
     val incident = Incident(title, description, reportTime, location, classId, ownerId, status)
     try {
-        supabase.from("incidents").insert(incident)
+        return supabase.from("incidents").insert(incident) {
+            select(
+                columns = Columns.list(
+                    "incident_id"
+                )
+            )
+        }.decodeSingle<IncidentId>().incident_id
+
         println("Incident successfully inserted!")
     } catch (e: Exception) {
         println("Error inserting incident: ${e.message}")
@@ -317,22 +330,29 @@ suspend fun updateUser(userId: Int,
 // Returns userId if login info is correct, 0 otherwise
 suspend fun checkLoginInfo(email: String, password: String): UserSessionCredentials {
     try {
+        println(email)
+        println(password)
+
         val result = supabase.from("users").select(
             columns = Columns.list(
                 "user_id",
-                            "role"
+                            "role",
+                            "email",
+                            "password"
             )
         ) {
-            filter {
-                eq("email", email)
-                eq("password", password)
-            }
-        }.decodeSingle<UserSessionCredentials>()
-        return result
+
+        }.decodeList<UserSessionCredentials>()
+        result.forEach {
+            print(it)
+            if (it.email == email && it.password == password)
+                return it
+        }
+        return UserSessionCredentials(0, "", "", "")
 
     } catch (e: Exception) {
         println("message: ${e.message}")
-        return UserSessionCredentials(0, "")
+        return UserSessionCredentials(0, "", "", "")
     }
 
 
@@ -404,20 +424,31 @@ suspend fun isIncidentFollowed(incidentId: Int, userId: Int): Boolean {
 }
 
 // Inserts an image to incident_images
-suspend fun insertImage(incidentId: Int, imagePath: String) {
+suspend fun uploadImage(bucketName: String, uri: Uri, contentResolver: ContentResolver): String {
+    return withContext(Dispatchers.IO) {
+        val inputStream = contentResolver.openInputStream(uri)
+        val bytes = inputStream?.readBytes() ?: throw Exception("Could not read file")
+
+        val fileName = "${java.util.UUID.randomUUID()}.jpg"
+        val imagePath = fileName
+
+        supabase.storage.from(bucketName).upload(imagePath, bytes)
+        imagePath
+    }
+}
+
+suspend fun insertImageUrl(incidentId: Int, imagePath: String) {
     val publicUrl = supabase.storage
         .from("incident-images")
         .publicUrl(imagePath)
+
     val incidentImage = IncidentImage(incidentId, publicUrl)
     supabase.from("incident_images").insert(incidentImage)
 }
 
-// Retrieves images from incident_id
 suspend fun getImages(incidentId: Int): List<ImageUrl> {
     return supabase.from("incident_images").select(
-        columns = Columns.list(
-            "image_url"
-        )
+        columns = Columns.list("image_url")
     ) {
         filter {
             eq("incident_id", incidentId)

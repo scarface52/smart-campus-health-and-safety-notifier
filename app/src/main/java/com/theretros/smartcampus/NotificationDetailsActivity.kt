@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
 import coil.load
 import com.google.android.material.appbar.MaterialToolbar
-import com.theretros.smartcampus.data.ImagePagerAdapter
+import com.theretros.smartcampus.adapters.ImagePagerAdapter
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -123,13 +123,13 @@ class NotificationDetailsActivity : AppCompatActivity() {
             statusText.text = incidentDetails.status
             setStatusIcon(incidentDetails.status)
             descriptionText.text = incidentDetails.description
-            setIncidentCard()
+            setIncidentCard(incidentDetails.class_id)
             setStarButton()
         }
     }
 
-    fun setIncidentCard() {
-        when (incidentId) {
+    fun setIncidentCard(classId: Int) {
+        when (classId) {
             1 -> {
                 incidentCard.text = getString(R.string.health)
                 incidentCard.icon = getDrawable(R.drawable.ic_health_24)

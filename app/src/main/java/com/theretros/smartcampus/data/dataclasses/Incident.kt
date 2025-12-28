@@ -9,7 +9,7 @@ data class Incident @OptIn(ExperimentalTime::class) constructor(
     val title: String,
     val description: String?,
     val report_time: Instant,
-    val location: String,
+    val location: String?,
     val class_id: Int,
     val owner_id: Int, // (Reporter)
     val status: String,

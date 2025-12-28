@@ -74,13 +74,15 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
 
         session = SessionManager(this)
-        session.saveSession("3", true)
+        if (session.getUserId() == null)
+            session.saveSession("3", true)
 
         setupClickListeners()
         fillPersonalInfoOnNavBar()
     }
 
     fun setupClickListeners() {
+
         val headerView = navView.getHeaderView(0)
         headerView.findViewById<MaterialButton>(R.id.buttonIncidents).setOnClickListener {
             if (currentFragment != "Incident Notifications") {
@@ -91,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
         headerView.findViewById<MaterialButton>(R.id.buttonNew).setOnClickListener {
             if (currentFragment != "New Notification") {
-                openFragment(NotificationListFragment(), true)
+                openFragment(CreateNotificationFragment(), true)
                 currentFragment = "New Notification"
             }
             drawerLayout.closeDrawers()
@@ -102,6 +104,7 @@ class MainActivity : AppCompatActivity() {
                 currentFragment = "See Locations"
             }
             drawerLayout.closeDrawers()
+            it.backgroundTintList
         }
         headerView.findViewById<MaterialButton>(R.id.logoutButton).setOnClickListener {
             session.clearSession()
@@ -139,5 +142,11 @@ class MainActivity : AppCompatActivity() {
             navView.findViewById<TextView>(R.id.nameText).text = name
             navView.findViewById<TextView>(R.id.mailText).text = userInfo.email
         }
+    }
+
+    fun getColorFromAttr(attr: Int): Int {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 }

@@ -92,10 +92,11 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
+            android:textColor="?attr/colorPrimary"
             style="@style/Widget.Material3.Button.OutlinedButton"
             app:cornerRadius="12dp"
             app:strokeWidth="0dp"
-            android:textColor="?attr/colorPrimary"
+
             android:textSize="18sp"
             android:text="New Notification"
             app:icon="@drawable/ic_add_24"

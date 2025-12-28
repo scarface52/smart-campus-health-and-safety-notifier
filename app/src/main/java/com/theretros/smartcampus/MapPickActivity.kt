@@ -36,8 +36,9 @@ class MapPickActivity : AppCompatActivity(), OnMapReadyCallback {
                     putExtra("LNG", it.longitude)
                 }
                 setResult(Activity.RESULT_OK, data)
-                finish()
+
             } ?: Toast.makeText(this, "Select a location first", Toast.LENGTH_SHORT).show()
+            finish()
         }
     }
 
