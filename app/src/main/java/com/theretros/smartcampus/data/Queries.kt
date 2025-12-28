@@ -228,17 +228,19 @@ suspend fun deleteIncident(incidentId: Int) {
 }
 
 // Searches incidents by title and description
-suspend fun searchIncidents(title: String): List<Incident> {
+suspend fun searchIncidents(title: String): List<IncidentWithFollow> {
     val incidents = supabase.from("incidents").select(
-        columns = Columns.list(
-            "title",
-            "description",
-            "report_time",
-            "location",
-            "class_id",
-            "owner_id",
-            "status"
-        )
+        Columns.raw("""
+                incident_id,
+                title,
+                description,
+                report_time,
+                class_id,
+                status,
+                followed_incidents (
+                    user_id
+                )
+            """)
     ) {
         filter {
             or {
@@ -246,8 +248,7 @@ suspend fun searchIncidents(title: String): List<Incident> {
                 ilike("description", "%$title%")
             }
         }
-    }.decodeList<Incident>()
-
+    }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
     return incidents
 }
 
