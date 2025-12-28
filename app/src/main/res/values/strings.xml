@@ -76,5 +76,7 @@
     <string name="confirm">Confirm</string>
     <string name="logo">Logo</string>
     <string name="last_name">Last Name</string>
+    <string name="placeholder">Loading…</string>
+    <string name="follow">Follow</string>
     "
 </resources>

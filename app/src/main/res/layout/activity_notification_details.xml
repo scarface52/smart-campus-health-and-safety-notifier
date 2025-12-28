@@ -57,13 +57,13 @@
                 android:layout_marginBottom="0dp">
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/titleView"
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:text="Health Incident Title"
-                    app:layout_constraintBottom_toTopOf="@+id/typeWithIconButton"
+                    android:text="@string/placeholder"
+                    app:layout_constraintBottom_toTopOf="@+id/incidentCard"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,26 +73,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-5dp"
-                    android:contentDescription="Favorite button"
+
+                    android:checkable="true"
+
+                    android:checked="false"
+                    android:contentDescription="@string/follow"
 
                     android:minWidth="0dp"
 
                     android:minHeight="0dp"
                     android:padding="6dp"
                     app:icon="@drawable/ic_empty_star_24"
-
                     app:iconTint="?attr/colorPrimary"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:rippleColor="?attr/colorHighlight" />
+                    app:rippleColor="?attr/colorPrimary"
+                    app:toggleCheckedStateOnClick="true" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/typeWithIconButton"
+                    android:id="@+id/incidentCard"
                     style="@style/TypeWithIconButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Health"
+                    android:text="@string/placeholder"
                     app:icon="@drawable/ic_health_24"
                     app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -109,19 +112,19 @@
                     android:id="@+id/calendar_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:contentDescription="calendar icon"
+                    android:contentDescription="@string/logo"
                     android:src="@drawable/ic_calendar_24"
                     app:tint="?attr/colorOnSurfaceVariant"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
                 <TextView
-                    android:id="@+id/date"
+                    android:id="@+id/dateView"
                     style="@style/body"
                     android:textSize="@dimen/body_small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="15 July 2025 Wed 20:02"
+                    android:text="@string/placeholder"
                     app:layout_constraintStart_toEndOf="@id/calendar_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -132,21 +135,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="4dp"
+                    android:contentDescription="@string/logo"
                     android:src="@drawable/tick_circle"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/statusText"
                     app:layout_constraintTop_toTopOf="parent" />
+                <!-- textColor was removed because it was causing a crash -->
                 <TextView
                     android:id="@+id/statusText"
                     style="@style/Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/resolved"
-                    android:textColor="?attr/colorSuccess"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
@@ -180,12 +183,11 @@
                 android:id="@+id/descriptionText"
                 style="@style/body"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="0.95"
                 android:maxLines="3"
                 android:ellipsize="end"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. " />
-
+                android:text="@string/placeholder"/>
 
 
         </LinearLayout>
@@ -206,20 +208,21 @@
 
 
             <TextView
+                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/body"
-                android:text="Location"
-
-                app:drawableStartCompat="@drawable/ic_location_24"
-
                 android:drawablePadding="8dp"
 
-                app:drawableTint="?attr/colorPrimary"
+                android:text="Location"
 
                 android:textAppearance="?attr/textAppearanceBodyLarge"
+
                 android:textColor="?attr/colorOnSurface"
-                />
+
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_location_24"
+                app:drawableTint="?attr/colorPrimary" />
 
             <!-- Minimap widget will be added -->
             <View

@@ -138,9 +138,10 @@ suspend fun getIncidentMapInfo(incidentId: Int): List<IncidentMapInfo> {
 }
 
 // Gets incident details from an incident id
-suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
-    val incidentDetail = supabase.from("incidents").select(
-        columns = Columns.raw("""
+suspend fun getIncidentDetails(incidentId: Int): IncidentDetail {
+    try {
+        return supabase.from("incidents").select(
+            columns = Columns.raw("""
             title,
             description,
             report_time,
@@ -153,13 +154,16 @@ suspend fun getIncidentDetail(incidentId: Int): IncidentDetail {
                 image_url
             )
         """)
-    ) {
-        filter {
-            eq("incident_id", incidentId)
-        }
-    }.decodeSingle<IncidentDetail>()
-
-    return incidentDetail
+        ) {
+            filter {
+                eq("incident_id", incidentId)
+            }
+        }.decodeSingle<IncidentDetail>()
+    }
+    catch (e: Exception) {
+        println("Error getting incident details: ${e.message}")
+        throw e
+    }
 }
 
 // Follows an incident if not already followed (database constraint exists)
@@ -378,4 +382,20 @@ suspend fun checkUserExists(email: String): Boolean {
     }.decodeList<Email>()
 
     return userId.isNotEmpty()
+}
+
+// Checks if an incident is followed by user
+suspend fun isIncidentFollowed(incidentId: Int, userId: Int): Boolean {
+    val result = supabase
+        .from("followed_incidents")
+        .select(columns = Columns.list("incident_id")) {
+            filter {
+                eq("incident_id", incidentId)
+                eq("user_id", userId)
+            }
+            limit(1)
+        }
+        .decodeList<Map<String, Int>>()
+
+    return result.isNotEmpty()
 }
