@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NotificationDetailsActivity"
+    android:background="?attr/colorSurfaceVariant"
+    android:layout_marginTop="-32dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/textFieldsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchLayout"
+            style="@style/TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:padding="0dp"
+            app:boxBackgroundColor="?attr/colorSurface"
+            app:hintEnabled="false"
+
+            app:startIconDrawable="@drawable/ic_search_24"
+            app:endIconMode="custom"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/filterLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.55">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/searchTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:paddingHorizontal="8dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filterLayout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:hint="Filter"
+            app:boxBackgroundColor="?attr/colorSurface"
+            app:endIconDrawable="@drawable/ic_chevron_down_24"
+            app:endIconTint="?attr/colorOnSurface"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/searchLayout"
+            app:layout_constraintWidth_percent="0.41"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="20dp">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/textFieldsLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:clipToPadding="false"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

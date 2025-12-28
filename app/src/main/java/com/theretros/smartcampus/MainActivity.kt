@@ -1,35 +1,49 @@
 package com.theretros.smartcampus
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.postgrest.Postgrest
-import io.github.jan.supabase.postgrest.from
-import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.storage.Storage
-import androidx.lifecycle.viewModelScope
-import com.theretros.smartcampus.data.DATABASE_URL
-import com.theretros.smartcampus.data.anon
-import com.theretros.smartcampus.data.dataclasses.User
-import kotlinx.coroutines.CoroutineScope
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.navigation.NavigationView
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
+import com.google.android.material.textfield.TextInputEditText
+import com.theretros.smartcampus.adapters.NotificationCardAdapter
+import com.theretros.smartcampus.data.checkLoginInfo
+import com.theretros.smartcampus.data.classes
+import com.theretros.smartcampus.data.getIncidentsWithFollowStatus
+import com.theretros.smartcampus.data.getUserInfo
+import com.theretros.smartcampus.data.searchIncidents
+import kotlinx.coroutines.delay
 
-val client = createSupabaseClient(
-    supabaseUrl = DATABASE_URL,
-    supabaseKey = anon
-) {
-    // Install the necessary modules
-    install(Postgrest)
-    install(Storage)
-}
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var fragmentContainer: androidx.fragment.app.FragmentContainerView
+    private lateinit var currentFragment: String
+    private lateinit var session: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -39,50 +53,91 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        currentFragment = ""
+
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView = findViewById<NavigationView>(R.id.navView)
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+
+        session = SessionManager(this)
+        session.saveSession("3", true)
+
+        setupClickListeners()
+        fillPersonalInfoOnNavBar()
     }
 
-    suspend fun InsertUser(user: User) {
-        try {
-            client.from("users")
-                .insert(user)
-
-            println("Data successfully inserted!")
-        } catch (e: Exception) {
-            println("Error inserting data: ${e.message}")
-            throw e
-        }
-    }
-
-    // how to use suspend functions
-    fun insert(){
-        // suspend functions must be inside a coroutine scope
-        CoroutineScope(Dispatchers.IO).launch {
-
-            // Data insertion
-            val user = User(
-                101,
-                "yusuf",
-                "karaca",
-                "ykaraca101@hotmail.com",
-                "abi57levelım",
-                "engineering",
-                "user",
-                ""
-            )
-            InsertUser(user)
-        }
-    }
-
-// get all users
-
-    fun GetAllUsers() {
-        val users = mutableListOf<User>()
-        CoroutineScope(Dispatchers.IO).launch {
-            val result = client.from("users").select().decodeList<User>()
-            users.addAll(result)
-            for (user in users) {
-                println(user)
+    fun setupClickListeners() {
+        val headerView = navView.getHeaderView(0)
+        headerView.findViewById<MaterialButton>(R.id.buttonIncidents).setOnClickListener {
+            if (currentFragment != "Incident Notifications") {
+                openFragment(NotificationListFragment(), true)
+                currentFragment = "Incident Notifications"
             }
+            drawerLayout.closeDrawers()
+        }
+        headerView.findViewById<MaterialButton>(R.id.buttonNew).setOnClickListener {
+            if (currentFragment != "New Notification") {
+                openFragment(NotificationListFragment(), true)
+                currentFragment = "New Notification"
+            }
+            drawerLayout.closeDrawers()
+        }
+        headerView.findViewById<MaterialButton>(R.id.buttonIncidents).setOnClickListener {
+            if (currentFragment != "See Locations") {
+                openFragment(NotificationListFragment(), true)
+                currentFragment = "See Locations"
+            }
+            drawerLayout.closeDrawers()
+        }
+        headerView.findViewById<MaterialButton>(R.id.logoutButton).setOnClickListener {
+            session.clearSession()
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        headerView.findViewById<ConstraintLayout>(R.id.profileLayout).setOnClickListener {
+            if (currentFragment != "Profile") {
+                openFragment(ProfileFragment(), true)
+                currentFragment = "Profile"
+            }
+            drawerLayout.closeDrawers()
+        }
+    }
+
+    fun openFragment(fragment: Fragment, addToBackStack: Boolean = false) {
+        val transaction = supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+
+        if (addToBackStack) {
+            transaction.addToBackStack(null)
+        }
+
+        transaction.commit()
+    }
+
+    fun fillPersonalInfoOnNavBar() {
+        lifecycleScope.launch {
+
+            val userInfo  = withContext(Dispatchers.IO) {
+                getUserInfo(session.getUserId()!!.toInt())
+            }
+            val name = "${userInfo.name} ${userInfo.last_name}"
+            navView.findViewById<TextView>(R.id.nameText).text = name
+            navView.findViewById<TextView>(R.id.mailText).text = userInfo.email
         }
     }
 }
