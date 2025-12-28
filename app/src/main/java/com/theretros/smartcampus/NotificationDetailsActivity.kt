@@ -20,7 +20,7 @@ import com.theretros.smartcampus.data.unfollowIncident
 import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
 import coil.load
-import com.theretros.smartcampus.data.ImagePagerAdapter
+import com.theretros.smartcampus.adapters.ImagePagerAdapter
 
 class NotificationDetailsActivity : AppCompatActivity() {
 

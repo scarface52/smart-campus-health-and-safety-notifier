@@ -79,5 +79,6 @@
     <string name="placeholder">Loading…</string>
     <string name="follow">Follow</string>
     <string name="location">Location</string>
+    <string name="select">Select</string>
     "
 </resources>
