@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -20,6 +21,7 @@ import com.theretros.smartcampus.data.unfollowIncident
 import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
 import coil.load
+import com.google.android.material.appbar.MaterialToolbar
 import com.theretros.smartcampus.data.ImagePagerAdapter
 
 class NotificationDetailsActivity : AppCompatActivity() {
@@ -35,6 +37,7 @@ class NotificationDetailsActivity : AppCompatActivity() {
     private lateinit var starButton: MaterialButton
     private lateinit var imagePager: ViewPager2
     private lateinit var photosCardView: CardView
+    private lateinit var toolbar: MaterialToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +49,10 @@ class NotificationDetailsActivity : AppCompatActivity() {
             insets
         }
 
-        incidentId = intent.getIntExtra("INCIDENT_ID", 2)
-        userId = intent.getIntExtra("USER_ID", 1)
+        val session = SessionManager(this)
+
+        incidentId = intent.getIntExtra("incidentId", 2)
+        userId = session.getUserId()!!.toInt()
 
         if (incidentId == -1) {
             finish()
@@ -64,7 +69,9 @@ class NotificationDetailsActivity : AppCompatActivity() {
         starButton = findViewById(R.id.starButton)
         imagePager = findViewById(R.id.imagePager)
         photosCardView = findViewById(R.id.photosCardView)
+        toolbar = findViewById(R.id.toolbar)
 
+        toolbar.setNavigationOnClickListener { onNavButtonClick() }
         setStarButton()
         starButton.setOnClickListener { onStarButtonClick() }
 
@@ -95,6 +102,10 @@ class NotificationDetailsActivity : AppCompatActivity() {
                 starButton.icon = getDrawable(R.drawable.ic_empty_star_24)
             }
         }
+    }
+
+    fun onNavButtonClick() {
+        finish()
     }
 
     @OptIn(ExperimentalTime::class)
