@@ -1,5 +1,6 @@
 package com.theretros.smartcampus.data
 
+import com.theretros.smartcampus.data.dataclasses.Email
 import com.theretros.smartcampus.data.dataclasses.FollowedIncident
 import com.theretros.smartcampus.data.dataclasses.FollowedIncidentClass
 import com.theretros.smartcampus.data.dataclasses.Incident
@@ -10,6 +11,7 @@ import com.theretros.smartcampus.data.dataclasses.IncidentSummary
 import com.theretros.smartcampus.data.dataclasses.IncidentWithFollow
 import com.theretros.smartcampus.data.dataclasses.IncidentWithFollowDto
 import com.theretros.smartcampus.data.dataclasses.User
+import com.theretros.smartcampus.data.dataclasses.UserId
 import com.theretros.smartcampus.data.dataclasses.UserInfo
 import com.theretros.smartcampus.data.dataclasses.toDomain
 import io.github.jan.supabase.createSupabaseClient
@@ -116,6 +118,7 @@ suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int? = null, stat
                 if (status != null) eq("status", status)
             }
         }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
+
     return incidentsWithFollow
 }
 
@@ -258,11 +261,20 @@ suspend fun insertUser(name: String,
                        password: String,
                        faculty: String,
                        role: String,
-                       jurisdiction: String) {
+                       jurisdiction: String): Int {
     val user = User(name, lastName, email, password, faculty, role, jurisdiction)
     try {
-        supabase.from("users").insert(user)
+        val userId = supabase.from("users")
+            .insert(user) {
+                select(
+                    columns = Columns.list(
+                        "user_id"
+                    )
+                )
+            }
+            .decodeSingle<UserId>()
         println("User successfully inserted!")
+        return userId.user_id
     } catch (e: Exception) {
         println("Error inserting user: ${e.message}")
         throw e
@@ -350,4 +362,19 @@ suspend fun getFollowedIncidentClasses(userId: Int): MutableSet<Int> {
     }.decodeList<IncidentClassId>().map { it.class_id }
 
     return followedIncidentClasses.toMutableSet()
+}
+
+// Checks if user with email exists
+suspend fun checkUserExists(email: String): Boolean {
+    val userId = supabase.from("users").select(
+        columns = Columns.list(
+            "user_id"
+        )
+    ) {
+        filter {
+            eq("email", email)
+        }
+    }.decodeList<Email>()
+
+    return userId.isNotEmpty()
 }

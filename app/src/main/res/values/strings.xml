@@ -7,6 +7,7 @@
     <string name="login">Log In</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="sign_up">Sign Up</string>
+    <string name="sign_up_bold"><b>Sign Up</b></string>
     <string name="sign_up_underlined"><u>Sign Up</u></string>
     <string name="dont_have_account">Don\'t have an account yet?</string>
     <!-- Strings used for fragments for navigation -->
@@ -70,5 +71,7 @@
     <string name="code">Code</string>
     <string name="enter_the_code">Enter the code that we sent to your email address.</string>
     <string name="confirm">Confirm</string>
+    <string name="logo">Logo</string>
+    <string name="last_name">Last Name</string>
     "
 </resources>

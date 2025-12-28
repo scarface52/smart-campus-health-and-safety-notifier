@@ -1,5 +1,7 @@
 package com.theretros.smartcampus
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -38,9 +40,10 @@ class ProfileActivity : AppCompatActivity() {
             insets
         }
 
-        // TODO: get userId from intent
-        //val userId = intent.getIntExtra("USER_ID", -1)
-        val userId = 11
+        val userId = intent.getIntExtra("USER_ID", -1)
+        if (userId == -1) {
+            navigateToLogin()
+        }
 
         nameView = findViewById(R.id.nameView)
         emailView = findViewById(R.id.emailView)
@@ -57,6 +60,7 @@ class ProfileActivity : AppCompatActivity() {
         setupListeners(userId)
     }
 
+    @SuppressLint("SetTextI18n")
     fun setUserInfo(userId: Int) {
         lifecycleScope.launch {
             val userInfo = getUserInfo(userId)
@@ -158,5 +162,11 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    fun navigateToLogin() {
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

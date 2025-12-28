@@ -29,13 +29,23 @@
             android:padding="16dp">
 
             <ImageView
-                android:layout_width="480px"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:contentDescription="@string/logo"
                 android:src="@drawable/logo560" />
 
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/sign_up_bold"
+                android:padding="10dp"
+                android:textSize="24sp" />
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/nameBox"
+                android:id="@+id/nameField"
                 style="@style/TextInputLayout"
                 android:hint="@string/name"
                 app:startIconDrawable="@drawable/ic_person_24">
@@ -45,7 +55,19 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailBox"
+                android:id="@+id/lastNameField"
+                style="@style/TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/last_name"
+                app:startIconDrawable="@drawable/ic_person_24">
+
+                <com.google.android.material.textfield.TextInputEditText style="@style/TextInputEditText" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailField"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -57,7 +79,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/passwordBox"
+                android:id="@+id/passwordField"
                 style="@style/TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -69,7 +91,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/facultyBox"
+                android:id="@+id/facultyField"
                 style="@style/TextInputLayout"
                 android:hint="@string/faculty"
                 app:startIconDrawable="@drawable/ic_location_24">
@@ -80,7 +102,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/filled_button"
+                android:id="@+id/signUpButton"
                 style="@style/My.FilledButton"
                 android:layout_marginBottom="50dp"
                 android:text="@string/sign_up"/>
