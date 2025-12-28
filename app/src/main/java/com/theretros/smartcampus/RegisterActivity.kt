@@ -80,7 +80,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun signUp(name: String, lastName: String, email: String, password: String, faculty: String) {
-        val role = "Student"
+        val role = "User"
         val jurisdiction = ""
         lifecycleScope.launch {
             var userId: Int

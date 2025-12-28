@@ -213,7 +213,7 @@
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
 
-                android:text="Location"
+                android:text="@string/location"
 
                 android:textAppearance="?attr/textAppearanceBodyLarge"
 
@@ -238,34 +238,36 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/photosCardView"
+        style="@style/CardStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/CardStyle">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:layout_marginHorizontal="12dp">
+            android:padding="16dp">
 
 
             <TextView
+                style="@style/Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/Title"
-                android:text="Photos"
-                />
+                android:padding="5dp"
+                android:text="Photos" />
 
             <!-- Minimap widget will be added -->
-            <View
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/imagePager"
                 android:layout_width="match_parent"
-                android:layout_height="78dp"
-                android:background="?attr/colorPrimary"/>
+                android:layout_height="250dp"
+                android:orientation="horizontal" />
+
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Photos will replace the square If there are any. if not the card will not created"/>
+                android:layout_height="match_parent" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

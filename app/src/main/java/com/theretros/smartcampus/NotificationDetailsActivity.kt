@@ -1,20 +1,26 @@
 package com.theretros.smartcampus
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
 import com.theretros.smartcampus.data.followIncident
+import com.theretros.smartcampus.data.getImages
 import com.theretros.smartcampus.data.getIncidentDetails
 import com.theretros.smartcampus.data.isIncidentFollowed
 import com.theretros.smartcampus.data.unfollowIncident
 import kotlinx.coroutines.launch
 import kotlin.time.ExperimentalTime
+import coil.load
+import com.theretros.smartcampus.data.ImagePagerAdapter
 
 class NotificationDetailsActivity : AppCompatActivity() {
 
@@ -27,6 +33,8 @@ class NotificationDetailsActivity : AppCompatActivity() {
     private lateinit var statusIcon: ImageView
     private lateinit var incidentCard: MaterialButton
     private lateinit var starButton: MaterialButton
+    private lateinit var imagePager: ViewPager2
+    private lateinit var photosCardView: CardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +62,26 @@ class NotificationDetailsActivity : AppCompatActivity() {
         statusText = findViewById(R.id.statusText)
         descriptionText = findViewById(R.id.descriptionText)
         starButton = findViewById(R.id.starButton)
+        imagePager = findViewById(R.id.imagePager)
+        photosCardView = findViewById(R.id.photosCardView)
+
         setStarButton()
-        setIncidentDetails()
         starButton.setOnClickListener { onStarButtonClick() }
+
+        setIncidentDetails()
+        setPhotosView()
+    }
+
+    fun setPhotosView() {
+        lifecycleScope.launch {
+            val images = getImages(incidentId)
+            if (images.isEmpty()) {
+                photosCardView.visibility = View.GONE
+                return@launch
+            }
+            val pager = findViewById<ViewPager2>(R.id.imagePager)
+            pager.adapter = ImagePagerAdapter(images.map { it.image_url } )
+        }
     }
 
     fun onStarButtonClick() {

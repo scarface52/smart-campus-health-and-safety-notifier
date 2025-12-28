@@ -3,9 +3,11 @@ package com.theretros.smartcampus.data
 import com.theretros.smartcampus.data.dataclasses.Email
 import com.theretros.smartcampus.data.dataclasses.FollowedIncident
 import com.theretros.smartcampus.data.dataclasses.FollowedIncidentClass
+import com.theretros.smartcampus.data.dataclasses.ImageUrl
 import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentClassId
 import com.theretros.smartcampus.data.dataclasses.IncidentDetail
+import com.theretros.smartcampus.data.dataclasses.IncidentImage
 import com.theretros.smartcampus.data.dataclasses.IncidentMapInfo
 import com.theretros.smartcampus.data.dataclasses.IncidentSummary
 import com.theretros.smartcampus.data.dataclasses.IncidentWithFollow
@@ -21,6 +23,7 @@ import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.storage
 import kotlin.collections.toMutableSet
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -398,4 +401,26 @@ suspend fun isIncidentFollowed(incidentId: Int, userId: Int): Boolean {
         .decodeList<Map<String, Int>>()
 
     return result.isNotEmpty()
+}
+
+// Inserts an image to incident_images
+suspend fun insertImage(incidentId: Int, imagePath: String) {
+    val publicUrl = supabase.storage
+        .from("incident-images")
+        .publicUrl(imagePath)
+    val incidentImage = IncidentImage(incidentId, publicUrl)
+    supabase.from("incident_images").insert(incidentImage)
+}
+
+// Retrieves images from incident_id
+suspend fun getImages(incidentId: Int): List<ImageUrl> {
+    return supabase.from("incident_images").select(
+        columns = Columns.list(
+            "image_url"
+        )
+    ) {
+        filter {
+            eq("incident_id", incidentId)
+        }
+    }.decodeList<ImageUrl>()
 }

@@ -3,7 +3,6 @@ package com.theretros.smartcampus.data.dataclasses
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class IncidentImage(
-    val incident_id: Int,
+data class ImageUrl(
     val image_url: String
 )
