@@ -11,6 +11,7 @@ import com.theretros.smartcampus.data.dataclasses.IncidentWithFollow
 import com.theretros.smartcampus.data.dataclasses.IncidentWithFollowDto
 import com.theretros.smartcampus.data.dataclasses.User
 import com.theretros.smartcampus.data.dataclasses.UserInfo
+import com.theretros.smartcampus.data.dataclasses.UserSessionCredentials
 import com.theretros.smartcampus.data.dataclasses.toDomain
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.postgrest.Postgrest
@@ -297,26 +298,27 @@ suspend fun updateUser(userId: Int,
 }
 
 // Returns userId if login info is correct, 0 otherwise
-suspend fun checkLoginInfo(email: String, password: String): Int {
-    var userId: Int
+suspend fun checkLoginInfo(email: String, password: String): UserSessionCredentials {
     try {
         val result = supabase.from("users").select(
             columns = Columns.list(
-                "user_id"
+                "user_id",
+                            "role"
             )
         ) {
             filter {
                 eq("email", email)
                 eq("password", password)
             }
-        }.decodeList<Map<String, Int>>()
-        userId = result.firstOrNull()?.get("user_id") ?: 0
+        }.decodeSingle<UserSessionCredentials>()
+        return result
+
     } catch (e: Exception) {
         println("message: ${e.message}")
-        return 0
+        return UserSessionCredentials(0, "")
     }
 
-    return userId
+
 }
 
 // Gets user information from user id
