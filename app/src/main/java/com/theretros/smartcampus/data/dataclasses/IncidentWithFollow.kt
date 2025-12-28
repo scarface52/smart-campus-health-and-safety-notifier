@@ -12,5 +12,5 @@ data class IncidentWithFollow @OptIn(ExperimentalTime::class) constructor(
     val report_time: Instant,
     val class_id: Int,
     val status: String,
-    val is_followed: Boolean
+    var is_followed: Boolean
 )
