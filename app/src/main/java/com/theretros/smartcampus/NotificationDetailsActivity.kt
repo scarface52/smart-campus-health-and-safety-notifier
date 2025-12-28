@@ -23,6 +23,11 @@ import kotlin.time.ExperimentalTime
 import coil.load
 import com.google.android.material.appbar.MaterialToolbar
 import com.theretros.smartcampus.data.ImagePagerAdapter
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
+import kotlin.time.Instant
+import kotlin.time.toJavaInstant
 
 class NotificationDetailsActivity : AppCompatActivity() {
 
@@ -113,7 +118,8 @@ class NotificationDetailsActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val incidentDetails = getIncidentDetails(incidentId)
             titleView.text = incidentDetails.title
-            dateView.text = incidentDetails.report_time.toString()
+
+            dateView.text = formatTime(incidentDetails.report_time)
             statusText.text = incidentDetails.status
             setStatusIcon(incidentDetails.status)
             descriptionText.text = incidentDetails.description
@@ -168,5 +174,15 @@ class NotificationDetailsActivity : AppCompatActivity() {
                 starButton.icon = getDrawable(R.drawable.ic_empty_star_24)
             }
         }
+    }
+
+    @OptIn(ExperimentalTime::class)
+    fun formatTime(report_time: Instant): String {
+        val userZone = ZoneId.systemDefault()
+
+        val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm", Locale.getDefault())
+            .withZone(userZone)
+        val formattedDate = formatter.format(report_time.toJavaInstant())
+        return formattedDate
     }
 }
