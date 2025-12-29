@@ -27,7 +27,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.theretros.smartcampus.data.deleteIncident
 import com.theretros.smartcampus.data.getIncidentDetails
 import com.theretros.smartcampus.data.insertImageUrl
-import com.theretros.smartcampus.data.insertIncident
+import com.theretros.smartcampus.data.updateIncident
 import com.theretros.smartcampus.data.uploadImage
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -222,7 +222,8 @@ class EditNotificationActivity : AppCompatActivity() {
         val title = titleTextField.text.toString()
         val description = descriptionTextField.text.toString()
 
-        val id = insertIncident(
+        updateIncident(
+            incidentId,
             title,
             description,
             Clock.System.now(),
@@ -234,7 +235,7 @@ class EditNotificationActivity : AppCompatActivity() {
 
         selectedImageUris.forEach {
             val path = uploadImage("incident-images", it, contentResolver)
-            insertImageUrl(id, path)
+            insertImageUrl(incidentId, path)
         }
 
         Toast.makeText(this, "Incident submitted", Toast.LENGTH_SHORT).show()

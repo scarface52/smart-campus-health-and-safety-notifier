@@ -445,3 +445,22 @@ suspend fun getImages(incidentId: Int): List<ImageUrl> {
         }
     }.decodeList<ImageUrl>()
 }
+
+@OptIn(ExperimentalTime::class)
+suspend fun updateIncident(incidentId: Int, title: String, description: String, reportTime: Instant, location: String?, classId: Int, ownerId: Int, status: String) {
+    supabase.from("incidents").update (
+        {
+            set("title", title)
+            set("description", description)
+            set("report_time", reportTime)
+            set("location", location)
+            set("class_id", classId)
+            set("owner_id", ownerId)
+            set("status", status)
+        }
+    ){
+        filter {
+            eq("incident_id", incidentId)
+        }
+    }
+}

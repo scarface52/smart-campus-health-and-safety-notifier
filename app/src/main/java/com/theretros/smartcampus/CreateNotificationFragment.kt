@@ -16,10 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -35,8 +32,7 @@ import kotlin.time.ExperimentalTime
 
 class CreateNotificationFragment : Fragment() {
 
-    private var userId: Int = 3
-
+    private var userId: Int = 0
     private lateinit var typeAutoComplete: MaterialAutoCompleteTextView
     private lateinit var titleTextLayout: TextInputLayout
     private lateinit var titleTextField: TextInputEditText
@@ -87,6 +83,9 @@ class CreateNotificationFragment : Fragment() {
     @OptIn(ExperimentalTime::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val session = SessionManager(requireContext())
+        userId = session.getUserId()!!.toInt()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
 
