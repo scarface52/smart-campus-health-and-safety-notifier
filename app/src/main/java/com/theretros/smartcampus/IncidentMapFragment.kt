@@ -73,7 +73,7 @@ class IncidentMapFragment : Fragment(), OnMapReadyCallback {
                 googleMap.setOnMarkerClickListener { marker ->
                     val id = marker.tag as? Int ?: return@setOnMarkerClickListener false
                     val intent = Intent(requireContext(), NotificationDetailsActivity::class.java)
-                    intent.putExtra("incident_id", id)
+                    intent.putExtra("incidentId", id)
                     startActivity(intent)
                     true
                 }
