@@ -38,26 +38,22 @@ import kotlin.time.ExperimentalTime
 class EditNotificationActivity : AppCompatActivity() {
 
     private var userId: Int = -1
+    private var incidentId: Int = -1
     private lateinit var savedLocation: String
-
     private lateinit var typeAutoComplete: MaterialAutoCompleteTextView
     private lateinit var selectStatusAutoComplete: MaterialAutoCompleteTextView
     private lateinit var titleTextLayout: TextInputLayout
     private lateinit var titleTextField: TextInputEditText
     private lateinit var descriptionTextLayout: TextInputLayout
     private lateinit var descriptionTextField: TextInputEditText
-
     private lateinit var locationChoice: RadioGroup
     private lateinit var optionUseCurrentLocation: MaterialRadioButton
     private lateinit var optionPickFromMap: MaterialRadioButton
-
     private lateinit var buttonAddPhoto: MaterialButton
     private lateinit var buttonSubmit: MaterialButton
     private lateinit var buttonDelete: MaterialButton
-
     private val selectedImageUris = mutableListOf<Uri>()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
-
     private val mainScope = MainScope()
 
     private val locationPermissionLauncher =
@@ -93,7 +89,7 @@ class EditNotificationActivity : AppCompatActivity() {
             insets
         }
         println("Loaded edit activity")
-        val incidentId = intent.getIntExtra("incidentId", -1)
+        incidentId = intent.getIntExtra("incidentId", -1)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
