@@ -300,33 +300,22 @@ suspend fun insertUser(name: String,
 }
 
 // Update user information
-suspend fun updateUser(userId: Int,
-                       name: String,
-                       lastName: String,
-                       email: String,
-                       password: String,
-                       faculty: String,
-                       role: String,
-                       jurisdiction: String) {
+suspend fun updateUserPassword(user_id: String, password: String) {
+
+
     supabase.from("users").update (
         {
-            set("name", name)
-            set("last_name", lastName)
-            set("email", email)
             set("password", password)
-            set("faculty", faculty)
-            set("role", role)
-            set("jurisdiction", jurisdiction)
         }
     ) {
         filter {
-            eq("user_id", userId)
+            eq("user_id", user_id)
         }
     }
 }
 
 // Returns userId if login info is correct, 0 otherwise
-suspend fun checkLoginInfo(email: String, password: String): UserSessionCredentials {
+suspend fun checkLoginInfo(email: String, password: String?): UserSessionCredentials {
     try {
         println(email)
         println(password)
@@ -344,6 +333,8 @@ suspend fun checkLoginInfo(email: String, password: String): UserSessionCredenti
         result.forEach {
             print(it)
             if (it.email == email && it.password == password)
+                return it
+            else if (it.email == email && password == null)
                 return it
         }
         return UserSessionCredentials(0, "", "", "")

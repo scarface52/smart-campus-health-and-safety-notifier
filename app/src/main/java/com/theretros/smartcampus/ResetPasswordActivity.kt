@@ -33,6 +33,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         sendCodeButton.setOnClickListener {
             val email = emailField.text.toString()
             val intent = Intent(this, EnterCodeActivity::class.java)
+            intent.putExtra("email", email)
             startActivity(intent)
         }
     }
