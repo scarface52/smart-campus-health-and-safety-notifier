@@ -24,6 +24,7 @@ import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.theretros.smartcampus.data.deleteIncident
 import com.theretros.smartcampus.data.getIncidentDetails
 import com.theretros.smartcampus.data.insertImageUrl
 import com.theretros.smartcampus.data.insertIncident
@@ -36,7 +37,7 @@ import kotlin.time.ExperimentalTime
 
 class EditNotificationActivity : AppCompatActivity() {
 
-    private var userId: Int = 3
+    private var userId: Int = -1
     private lateinit var savedLocation: String
 
     private lateinit var typeAutoComplete: MaterialAutoCompleteTextView
@@ -52,6 +53,7 @@ class EditNotificationActivity : AppCompatActivity() {
 
     private lateinit var buttonAddPhoto: MaterialButton
     private lateinit var buttonSubmit: MaterialButton
+    private lateinit var buttonDelete: MaterialButton
 
     private val selectedImageUris = mutableListOf<Uri>()
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -91,7 +93,7 @@ class EditNotificationActivity : AppCompatActivity() {
             insets
         }
         println("Loaded edit activity")
-        val incidentId =intent.getIntExtra("incidentId", -1)
+        val incidentId = intent.getIntExtra("incidentId", -1)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -109,6 +111,7 @@ class EditNotificationActivity : AppCompatActivity() {
 
         buttonAddPhoto = findViewById(R.id.buttonAddPhoto)
         buttonSubmit = findViewById(R.id.buttonSubmit)
+        buttonDelete = findViewById(R.id.buttonDelete)
 
         val toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
 
@@ -124,6 +127,13 @@ class EditNotificationActivity : AppCompatActivity() {
 
         buttonSubmit.setOnClickListener {
             validateFields()
+        }
+
+        buttonDelete.setOnClickListener {
+            lifecycleScope.launch {
+                deleteIncident(incidentId)
+                finish()
+            }
         }
     }
 
@@ -153,6 +163,7 @@ class EditNotificationActivity : AppCompatActivity() {
             typeAutoComplete.setText(classIdToName(incidentDetail.class_id), false)
             selectStatusAutoComplete.setText(incidentDetail.status, false)
             savedLocation = incidentDetail.location
+            userId = incidentDetail.owner_id
         }
     }
 

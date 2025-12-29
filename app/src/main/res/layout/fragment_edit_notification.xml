@@ -27,22 +27,17 @@
                 app:titleTextColor="?attr/colorOnSurface"
                 app:title="Smart Campus"
                 app:navigationIcon="@drawable/ic_arrow_back_24"
-                app:navigationIconTint="?attr/colorOnSurface" />
+                app:navigationIconTint="?attr/colorOnSurface"/>
         </com.google.android.material.appbar.AppBarLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/descriptionCard"
         style="@style/CardStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -246,14 +241,39 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSubmit"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/card_marginStart"
-        android:layout_marginEnd="@dimen/card_marginEnd"
-        style="@style/My.FilledButton"
-        android:text="Submit"/>
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonDelete"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/card_marginStart"
+            android:layout_marginEnd="8dp"
+            android:paddingHorizontal="36dp"
+            android:paddingVertical="12dp"
+            android:textSize="@dimen/body_large"
+            style="@style/My.FilledButton"
+            app:cornerRadius="8dp"
+            android:backgroundTint="?attr/colorError"
+            android:text="Delete"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonSubmit"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="@dimen/card_marginEnd"
+            android:paddingVertical="12dp"
+            app:cornerRadius="8dp"
+            android:paddingHorizontal="36dp"
+            android:textSize="@dimen/body_large"
+            style="@style/My.FilledButton"
+            android:text="Submit"/>
+
+    </LinearLayout>
+
 
 
 

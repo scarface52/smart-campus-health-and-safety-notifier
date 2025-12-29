@@ -162,6 +162,7 @@ suspend fun getIncidentDetails(incidentId: Int): IncidentDetail {
             location,
             class_id,
             status,
+            owner_id,
             incident_images (
                 image_id,
                 incident_id,

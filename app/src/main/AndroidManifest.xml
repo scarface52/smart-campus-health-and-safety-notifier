@@ -28,7 +28,7 @@
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
 
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.SmartCampus">
         </activity>
@@ -48,10 +48,13 @@
         <activity
             android:name=".MapPickActivity"
             android:exported="false" />
+        <activity
+            android:name=".EditNotificationActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDXfDGX2cE3tnmgyso8MItctvAV64uUKkk" />
+            android:value="null" />
     </application>
 
 </manifest>
