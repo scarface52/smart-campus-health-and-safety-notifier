@@ -128,11 +128,12 @@ suspend fun getIncidentsWithFollowStatus(userId: Int, classId: Int? = null, stat
                 )
             """)
         ) {
+            order(column = "report_time", order = Order.DESCENDING)
             filter {
-                if (classId != null) eq("class_id", classId)
-                if (status != null) eq("status", status)
-            }
-        }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
+                    if (classId != null) eq("class_id", classId)
+                    if (status != null) eq("status", status)
+                }
+            }.decodeList<IncidentWithFollowDto>().map { it.toDomain() }
 
     return incidentsWithFollow
 }

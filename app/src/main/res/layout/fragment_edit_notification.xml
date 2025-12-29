@@ -10,8 +10,32 @@
     android:orientation="vertical"
     android:background="?attr/android:colorBackground">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
 
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorSurface"
+                app:titleTextColor="?attr/colorOnSurface"
+                app:title="Smart Campus"
+                app:navigationIcon="@drawable/ic_arrow_back_24"
+                app:navigationIconTint="?attr/colorOnSurface" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/descriptionCard"
@@ -28,13 +52,22 @@
             android:layout_marginHorizontal="12dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.App.TextInputLayout.Dropdown"
-                android:hint="Select Type">
+                style="@style/Widget.App.TextInputLayout.Dropdown">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/typeAutoComplete"
                     style="@style/Widget.App.AutoCompleteTextView"
-                    android:inputType="none" />
+                    android:inputType="none"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.App.TextInputLayout.Dropdown">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/selectStatusAutoComplete"
+                    style="@style/Widget.App.AutoCompleteTextView"
+                    android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,11 +134,21 @@
                     android:padding="0dp"
                     android:minHeight="16dp"
                     android:layout_marginBottom="4dp"
-                    android:text="Use My Current Location"
+                    android:text="Don't change location"
                     android:checked="true" />
 
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/option_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/body"
+                    android:padding="0dp"
+                    android:minHeight="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="Use my current location"/>
+
+                <com.google.android.material.radiobutton.MaterialRadioButton
+                    android:id="@+id/option_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="@style/body"
@@ -210,7 +253,7 @@
         android:layout_marginStart="@dimen/card_marginStart"
         android:layout_marginEnd="@dimen/card_marginEnd"
         style="@style/My.FilledButton"
-        android:text="@string/save"/>
+        android:text="Submit"/>
 
 
 

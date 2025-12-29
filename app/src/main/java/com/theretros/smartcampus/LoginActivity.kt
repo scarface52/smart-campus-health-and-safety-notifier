@@ -70,10 +70,11 @@ class LoginActivity : AppCompatActivity() {
                 val userSessionCredentials  = checkLoginInfo(email, password)
 
                 println("userId: ${userSessionCredentials.user_id}")
+                println("role: ${userSessionCredentials.role}")
                 if (userSessionCredentials.user_id != 0) {
 
                     val sessionManager = SessionManager(this@LoginActivity)
-                    sessionManager.saveSession(userSessionCredentials.user_id.toString(), userSessionCredentials.role != "user")
+                    sessionManager.saveSession(userSessionCredentials.user_id.toString(), userSessionCredentials.role == "Admin")
 
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)

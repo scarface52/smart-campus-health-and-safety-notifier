@@ -16,21 +16,16 @@ import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
+import com.theretros.smartcampus.EditNotificationActivity
 import com.theretros.smartcampus.NotificationDetailsActivity
 import com.theretros.smartcampus.R
 import com.theretros.smartcampus.SessionManager
 import com.theretros.smartcampus.data.classes
-import com.theretros.smartcampus.data.dataclasses.Incident
 import com.theretros.smartcampus.data.dataclasses.IncidentWithFollow
 import com.theretros.smartcampus.data.followIncident
 import com.theretros.smartcampus.data.unfollowIncident
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import kotlinx.datetime.format
-import kotlinx.datetime.toJavaLocalDateTime
-import kotlin.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -138,11 +133,17 @@ class NotificationCardAdapter(private val notificationList: List<IncidentWithFol
         }
 
         holder.card.setOnClickListener {
-            val intent = Intent(con, NotificationDetailsActivity::class.java)
-
-            intent.putExtra("incidentId", incident.incident_id)
-
-            con.startActivity(intent)
+            if (!session.isAdmin())
+            {
+                val intent = Intent(con, NotificationDetailsActivity::class.java)
+                intent.putExtra("incidentId", incident.incident_id)
+                con.startActivity(intent)
+            } else {
+                println("User is admin")
+                val intent = Intent(con, EditNotificationActivity::class.java)
+                intent.putExtra("incidentId", incident.incident_id)
+                con.startActivity(intent)
+            }
         }
     }
 

@@ -26,6 +26,7 @@ class NotificationListFragment :
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var autoCompleteTextView: MaterialAutoCompleteTextView
+    private lateinit var session: SessionManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +39,7 @@ class NotificationListFragment :
 
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        session = SessionManager(requireContext())
 
         autoCompleteTextView = view.findViewById(R.id.autoCompleteTextView)
 
@@ -88,7 +90,7 @@ class NotificationListFragment :
         viewLifecycleOwner.lifecycleScope.launch {
             val notifications = withContext(Dispatchers.IO) {
                 getIncidentsWithFollowStatus(
-                    userId = 11,
+                    userId = session.getUserId()!!.toInt(),
                     classId = typeFilter,
                     status = statusFilter
                 )
@@ -101,7 +103,7 @@ class NotificationListFragment :
     fun fillRecyclerViewWithFollowed() {
         viewLifecycleOwner.lifecycleScope.launch {
             val tmpNotifications = withContext(Dispatchers.IO) {
-                getFollowedIncidents(userId = 11)
+                getFollowedIncidents(session.getUserId()!!.toInt())
             }
 
             val notifications = tmpNotifications.map {
