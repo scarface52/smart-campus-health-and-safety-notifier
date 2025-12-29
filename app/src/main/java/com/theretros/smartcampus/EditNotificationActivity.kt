@@ -26,7 +26,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.theretros.smartcampus.data.getIncidentDetails
 import com.theretros.smartcampus.data.insertImageUrl
-import com.theretros.smartcampus.data.insertIncident
+import com.theretros.smartcampus.data.updateIncident
 import com.theretros.smartcampus.data.uploadImage
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -37,6 +37,7 @@ import kotlin.time.ExperimentalTime
 class EditNotificationActivity : AppCompatActivity() {
 
     private var userId: Int = 3
+    private var incidentId: Int = 0
     private lateinit var savedLocation: String
 
     private lateinit var typeAutoComplete: MaterialAutoCompleteTextView
@@ -91,7 +92,7 @@ class EditNotificationActivity : AppCompatActivity() {
             insets
         }
         println("Loaded edit activity")
-        val incidentId =intent.getIntExtra("incidentId", -1)
+        incidentId = intent.getIntExtra("incidentId", -1)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
@@ -211,7 +212,8 @@ class EditNotificationActivity : AppCompatActivity() {
         val title = titleTextField.text.toString()
         val description = descriptionTextField.text.toString()
 
-        val id = insertIncident(
+        updateIncident(
+            incidentId,
             title,
             description,
             Clock.System.now(),
@@ -223,7 +225,7 @@ class EditNotificationActivity : AppCompatActivity() {
 
         selectedImageUris.forEach {
             val path = uploadImage("incident-images", it, contentResolver)
-            insertImageUrl(id, path)
+            insertImageUrl(incidentId, path)
         }
 
         Toast.makeText(this, "Incident submitted", Toast.LENGTH_SHORT).show()
