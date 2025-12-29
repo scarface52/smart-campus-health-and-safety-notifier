@@ -101,11 +101,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun navigateToProfile(userId: Int) {
-//        val intent = Intent(this, ProfileActivity::class.java)
-//        intent.putExtra("USER_ID", userId)
-//        startActivity(intent)
-//        finish()
-        val a=1
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("USER_ID", userId)
+        startActivity(intent)
+        finish()
     }
 
     fun clearErrors() {

@@ -63,7 +63,6 @@ class NotificationDetailsActivity : AppCompatActivity() {
             finish()
         }
 
-        println("incident id: $incidentId")
 
         titleView = findViewById(R.id.titleView)
         incidentCard = findViewById(R.id.incidentCard)

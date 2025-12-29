@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,12 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.theretros.smartcampus.data.checkLoginInfo
-import com.theretros.smartcampus.data.dataclasses.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
 
@@ -63,8 +58,7 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
-            println(email)
-            println(password)
+
             lifecycleScope.launch {
 
                 val userSessionCredentials  = checkLoginInfo(email, password)

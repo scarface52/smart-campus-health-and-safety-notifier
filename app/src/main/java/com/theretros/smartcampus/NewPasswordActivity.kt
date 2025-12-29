@@ -30,7 +30,6 @@ class NewPasswordActivity : AppCompatActivity() {
         }
 
         changeButton = findViewById(R.id.changeButton)
-        changeButton.setText("asdfasfasdfasdfas")
         passwordChangeField = findViewById(R.id.passwordChangeField)
         changeButton.setOnClickListener {
             println(245345555534)

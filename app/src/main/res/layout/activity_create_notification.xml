@@ -25,16 +25,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp"
-            android:layout_marginHorizontal="12dp">
+            android:layout_marginHorizontal="6dp">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.App.TextInputLayout.Dropdown"
-                android:hint="Select Type">
+                >
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
                     android:id="@+id/typeAutoComplete"
                     style="@style/Widget.App.AutoCompleteTextView"
-                    android:inputType="none" />
+                    android:text="Select Type"
+                    android:inputType="none"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -210,7 +211,7 @@
         android:layout_marginStart="@dimen/card_marginStart"
         android:layout_marginEnd="@dimen/card_marginEnd"
         style="@style/My.FilledButton"
-        android:text="@string/save"/>
+        android:text="Submit"/>
 
 
 

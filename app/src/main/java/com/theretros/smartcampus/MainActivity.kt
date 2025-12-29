@@ -74,11 +74,10 @@ class MainActivity : AppCompatActivity() {
         drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
 
         session = SessionManager(this)
-        if (session.getUserId() == null)
-            session.saveSession("3", true)
 
         setupClickListeners()
         fillPersonalInfoOnNavBar()
+        openFragment(NotificationListFragment(), false)
     }
 
     fun setupClickListeners() {
